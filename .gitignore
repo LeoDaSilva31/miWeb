@@ -1,0 +1,31 @@
+# Archivos de entorno
+.env
+.env.local
+.env.production
+
+# Base de datos
+*.sqlite3
+db.sqlite3
+
+# Entorno virtual
+venv/
+.venv/
+env/
+
+# Cache de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
