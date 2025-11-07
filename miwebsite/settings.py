@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bienvenida',  # App principal del sitio
+    'panaderia',   # App demo: Landing page panadería
 ]
 
 # --- Middleware ---
