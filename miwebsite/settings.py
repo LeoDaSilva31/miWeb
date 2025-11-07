@@ -34,8 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bienvenida',
-    'blog',  # Nueva app para el blog de Leo
+    'bienvenida',  # App principal del sitio
 ]
 
 # --- Middleware ---

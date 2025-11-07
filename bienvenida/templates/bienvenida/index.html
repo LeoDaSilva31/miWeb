@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Leo's Blog - Desarrollador Web</title>
+    <title>Leo Da Silva - Desarrollador Web</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'bienvenida/css/style.css' %}" />
     <link
@@ -12,93 +12,263 @@
     />
   </head>
   <body>
-    <div class="container">
-      <div class="content">
-        <div class="icon">
-          <svg
-            width="80"
-            height="80"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+    <!-- Hero Banner -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>¡Hola, soy <span class="highlight">Leo</span>! 👋</h1>
+          <p class="hero-subtitle">
+            Desarrollador Web & Creator de Soluciones Digitales
+          </p>
+          <p class="hero-description">
+            Especializado en desarrollo de páginas web, aplicaciones en línea y
+            soluciones digitales personalizadas. Transformo ideas en
+            experiencias web excepcionales.
+          </p>
+          <div class="hero-buttons">
+            <a href="#servicios" class="btn-primary">Ver Servicios</a>
+            <a href="#proyectos" class="btn-secondary">Mis Proyectos</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="code-animation">
+            <svg
+              width="120"
+              height="120"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16 18L22 12L16 6"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M8 6L2 12L8 18"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Servicios -->
+    <section id="servicios" class="services">
+      <div class="container">
+        <h2>Servicios de Desarrollo</h2>
+        <p class="section-subtitle">
+          Soluciones digitales que impulsan tu negocio
+        </p>
+
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <polyline
+                  points="14,2 14,8 20,8"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+            </div>
+            <h3>Páginas Web</h3>
+            <p>
+              Sitios web modernos, responsivos y optimizados para SEO. Desde
+              landing pages hasta sitios corporativos completos.
+            </p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <rect
+                  x="2"
+                  y="3"
+                  width="20"
+                  height="14"
+                  rx="2"
+                  ry="2"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <line
+                  x1="8"
+                  y1="21"
+                  x2="16"
+                  y2="21"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <line
+                  x1="12"
+                  y1="17"
+                  x2="12"
+                  y2="21"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+            </div>
+            <h3>Apps Web</h3>
+            <p>
+              Aplicaciones web interactivas con Django, JavaScript y bases de
+              datos. Soluciones completas y escalables.
+            </p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="3"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+            </div>
+            <h3>Soluciones Personalizadas</h3>
+            <p>
+              Desarrollo de herramientas específicas para tu negocio.
+              Automatización y sistemas a medida.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Proyectos Demo -->
+    <section id="proyectos" class="projects">
+      <div class="container">
+        <h2>Aplicaciones de Muestra</h2>
+        <p class="section-subtitle">
+          Explora algunas demos de las soluciones que puedo crear
+        </p>
+
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="project-icon">📝</div>
+            <h3>Sistema de Blog</h3>
+            <p>
+              Blog completo con administración, categorías, comentarios y SEO
+              optimizado.
+            </p>
+            <button class="btn-demo" disabled>
+              <span>Próximamente</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12H19" stroke="currentColor" stroke-width="2" />
+                <polyline
+                  points="12,5 19,12 12,19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div class="project-card">
+            <div class="project-icon">🛒</div>
+            <h3>E-commerce</h3>
+            <p>
+              Tienda online con carrito, pagos, inventario y panel
+              administrativo.
+            </p>
+            <button class="btn-demo" disabled>
+              <span>En desarrollo</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12H19" stroke="currentColor" stroke-width="2" />
+                <polyline
+                  points="12,5 19,12 12,19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div class="project-card">
+            <div class="project-icon">📊</div>
+            <h3>Dashboard</h3>
+            <p>
+              Panel de control con gráficos, métricas y gestión de datos en
+              tiempo real.
+            </p>
+            <button class="btn-demo" disabled>
+              <span>Planificado</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12H19" stroke="currentColor" stroke-width="2" />
+                <polyline
+                  points="12,5 19,12 12,19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="cta">
+      <div class="container">
+        <h2>¿Tienes un proyecto en mente?</h2>
+        <p>Hablemos de cómo puedo ayudarte a llevarlo a la realidad</p>
+        <a
+          href="https://github.com/LeoDaSilva31"
+          target="_blank"
+          class="btn-primary"
+        >
+          Ver mi GitHub
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path
-              d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+              d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
               stroke="currentColor"
               stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
             />
-            <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+            <polyline
+              points="15,3 21,3 21,9"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+            <line
+              x1="10"
+              y1="14"
+              x2="21"
+              y2="3"
+              stroke="currentColor"
+              stroke-width="2"
+            />
           </svg>
-        </div>
-
-        <h1>¡Hola, soy Leo! 👋</h1>
-        <p class="subtitle">Desarrollador Web & Creator</p>
-
-        <div class="description">
-          <p>
-            Bienvenido a mi espacio digital. Soy un apasionado desarrollador web 
-            que comparte conocimiento, experiencias y proyectos innovadores. 
-            Mi blog está creciendo con contenido sobre desarrollo, tecnología 
-            y las mejores prácticas del mundo tech.
-          </p>
-        </div>
-
-        <div class="progress-bar">
-          <div class="progress"></div>
-        </div>
-
-        <p class="progress-text">Nuevos artículos en desarrollo: 75%</p>
-
-        <div class="blog-action">
-          <a href="{% url 'blog:index' %}" class="blog-button">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/>
-              <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2"/>
-              <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2"/>
-              <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2"/>
-              <polyline points="10,9 9,9 8,9" stroke="currentColor" stroke-width="2"/>
-            </svg>
-            Explorar Blog
-          </a>
-          <p class="blog-description">Descubre artículos sobre desarrollo web, tutoriales y mis proyectos</p>
-        </div>
-
-        <div class="social-links">
-          <a href="https://github.com/LeoDaSilva31" class="social-link" aria-label="GitHub" target="_blank">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </a>
-          <a href="#" class="social-link" aria-label="LinkedIn">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" stroke="currentColor" stroke-width="2"/>
-              <rect x="2" y="9" width="4" height="12" stroke="currentColor" stroke-width="2"/>
-              <circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </a>
-          <a href="#" class="social-link" aria-label="Twitter">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </a>
-        </div>
-
-        <div class="contact-info">
-          <p>¿Quieres colaborar o tienes alguna pregunta?</p>
-          <a href="mailto:leonardodasilva2493@gmail.com" class="email">leonardodasilva2493@gmail.com</a>
-        </div>
-
-        
-
-      <div class="background-pattern">
-        <div class="pattern-dot"></div>
-        <div class="pattern-dot"></div>
-        <div class="pattern-dot"></div>
-        <div class="pattern-dot"></div>
-        <div class="pattern-dot"></div>
+        </a>
       </div>
+    </section>
+
+    <!-- Background Pattern -->
+    <div class="background-pattern">
+      <div class="pattern-dot"></div>
+      <div class="pattern-dot"></div>
+      <div class="pattern-dot"></div>
+      <div class="pattern-dot"></div>
+      <div class="pattern-dot"></div>
     </div>
   </body>
 </html>
