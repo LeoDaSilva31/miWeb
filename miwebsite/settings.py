@@ -13,7 +13,13 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 't')
 
 # Render te asigna un dominio *.onrender.com
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'miweb-6ixr.onrender.com',
+                 'leods-blog.org', 'www.leods-blog.org', '.onrender.com']
+
+
+
 render_external_hostname = os.getenv('RENDER_EXTERNAL_HOSTNAME')
 if render_external_hostname:
     ALLOWED_HOSTS.append(render_external_hostname)
@@ -109,8 +115,11 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # --- CSRF (necesario en Render) ---
+# CSRF
 CSRF_TRUSTED_ORIGINS = [
     'https://*.onrender.com',
+    'https://leods-blog.org',
+    'https://www.leods-blog.org',
 ]
 
 # --- Default PK ---
