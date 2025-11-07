@@ -29,3 +29,6 @@ __pycache__/
 # Windows
 Thumbs.db
 Desktop.ini
+
+# Archivos estáticos generados
+staticfiles/
