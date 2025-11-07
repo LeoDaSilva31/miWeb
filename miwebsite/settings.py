@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bienvenida',
+    'blog',  # Nueva app para el blog de Leo
 ]
 
 # --- Middleware ---
