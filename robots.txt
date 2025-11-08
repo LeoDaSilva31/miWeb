@@ -3,6 +3,6 @@ Allow: /
 
 Sitemap: https://leods-blog.org/sitemap.xml
 
-# Bloquear archivos de admin en producción
+# Bloquear archivos de admin en produccion
 Disallow: /admin/
 Disallow: /static/admin/
