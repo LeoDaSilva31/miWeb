@@ -1,8 +1,21 @@
 User-agent: *
 Allow: /
+Crawl-delay: 1
 
+# Sitemaps
 Sitemap: https://leods-blog.org/sitemap.xml
+Sitemap: https://www.leods-blog.org/sitemap.xml
 
-# Bloquear archivos de admin en produccion
+# Bloquear archivos de admin en producción
 Disallow: /admin/
 Disallow: /static/admin/
+
+# Permitir acceso a recursos importantes
+Allow: /static/
+Allow: /*.css
+Allow: /*.js
+
+# Información de contacto
+# Desarrollador Web - Crear Páginas Web - Argentina
+# Email: leonardodasilva2493@gmail.com
+# WhatsApp: +5491168044215
