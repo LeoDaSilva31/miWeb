@@ -2,7 +2,6 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-import dj_database_url
 
 load_dotenv()
 
@@ -36,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bienvenida',  # App principal del sitio
     'panaderia',   # App demo: Landing page panadería
+    'directorio',  # App demo: Sistema directorio con buscador
 ]
 
 # --- Middleware ---
@@ -73,22 +73,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'miwebsite.wsgi.application'
 
 # --- Base de datos ---
-# Usá SQLite localmente (si querés) y DATABASE_URL en Render
-if os.getenv('DATABASE_URL'):
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=os.getenv('DATABASE_URL'),
-            conn_max_age=600,
-            ssl_require=True
-        )
+# Usar SQLite para desarrollo local
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
 
 # --- Password validators ---
 AUTH_PASSWORD_VALIDATORS = [

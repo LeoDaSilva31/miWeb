@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Directorio - Demo Empresarial</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+
+      .fade-in {
+        animation: fadeIn 0.6s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .search-focus:focus {
+        transform: scale(1.02);
+        transition: transform 0.2s ease;
+      }
+
+      .loading {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #3498db;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 min-h-screen">
+    <!-- Navegación -->
+    <nav class="bg-white shadow-sm border-b sticky top-0 z-50">
+      <div class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4">
+            <a
+              href="/"
+              class="text-blue-600 hover:text-blue-800 transition-colors"
+            >
+              <i class="fas fa-arrow-left mr-2"></i>Volver al inicio
+            </a>
+            <div class="hidden md:block w-px h-6 bg-gray-300"></div>
+            <h1 class="text-xl font-bold text-gray-800">
+              <i class="fas fa-users text-blue-600 mr-2"></i>
+              Sistema de Directorio
+            </h1>
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <span
+              class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium"
+            >
+              <i class="fas fa-flask mr-1"></i>Demo
+            </span>
+            <button
+              onclick="mostrarInfo()"
+              class="text-gray-600 hover:text-blue-600 transition-colors"
+            >
+              <i class="fas fa-info-circle text-lg"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      class="bg-gradient-to-br from-blue-600 to-purple-700 text-white py-16"
+    >
+      <div class="container mx-auto px-4 text-center">
+        <div class="max-w-4xl mx-auto fade-in">
+          <h2 class="text-4xl md:text-6xl font-bold mb-6">
+            Directorio Digital
+            <span
+              class="block text-blue-200 text-2xl md:text-3xl font-normal mt-2"
+            >
+              Gestión Inteligente de Contactos
+            </span>
+          </h2>
+
+          <p class="text-xl md:text-2xl text-blue-100 mb-12 leading-relaxed">
+            Sistema profesional para administrar directorios empresariales con
+            búsqueda avanzada
+          </p>
+
+          <!-- Estadísticas -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white/10 backdrop-blur rounded-xl p-6">
+              <div class="text-3xl font-bold">{{ total_socios }}</div>
+              <div class="text-blue-200">Contactos Activos</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-6">
+              <div class="text-3xl font-bold">100%</div>
+              <div class="text-blue-200">Búsqueda Instantánea</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-6">
+              <div class="text-3xl font-bold">24/7</div>
+              <div class="text-blue-200">Disponibilidad</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Buscador Principal -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+          <h3 class="text-3xl font-bold text-gray-800 mb-8">
+            <i class="fas fa-search text-blue-600 mr-3"></i>
+            Búsqueda Inteligente
+          </h3>
+
+          <div class="relative">
+            <form id="searchForm" class="flex flex-col md:flex-row gap-4">
+              <div class="flex-1 relative">
+                <input
+                  type="text"
+                  id="searchInput"
+                  name="q"
+                  placeholder="Buscar por nombre, apellido o empresa..."
+                  class="w-full px-6 py-4 text-lg border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:outline-none search-focus transition-all"
+                  autocomplete="off"
+                />
+                <i
+                  class="fas fa-search absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+                ></i>
+              </div>
+
+              <button
+                type="submit"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold transition-all hover:transform hover:scale-105 flex items-center justify-center min-w-[140px]"
+              >
+                <span class="search-btn-text">Buscar</span>
+                <div class="loading hidden ml-2"></div>
+              </button>
+            </form>
+          </div>
+
+          <p class="text-gray-600 mt-4">
+            Prueba buscar: "Juan", "García", "Tecnología"
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resultados de Búsqueda -->
+    <section id="resultados" class="py-12 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div id="resultadosContainer" class="max-w-6xl mx-auto">
+          <!-- Aquí se mostrarán los resultados vía JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Contactos Destacados -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+          <h3 class="text-3xl font-bold text-gray-800 mb-12 text-center">
+            <i class="fas fa-star text-yellow-500 mr-3"></i>
+            Contactos Destacados
+          </h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for socio in socios_destacados %}
+            <div
+              class="bg-white rounded-xl shadow-md card-hover p-6 border border-gray-100"
+            >
+              <div class="flex items-start justify-between mb-4">
+                <div class="flex-1">
+                  <h4 class="text-xl font-semibold text-gray-800">
+                    {{ socio.nombre_completo }}
+                  </h4>
+                  <p class="text-blue-600 font-medium">{{ socio.empresa }}</p>
+                </div>
+                <div
+                  class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg"
+                >
+                  {{ socio.nombre|first }}{{ socio.apellido|first }}
+                </div>
+              </div>
+
+              <div class="space-y-3">
+                <div class="flex items-center text-gray-600">
+                  <i class="fas fa-envelope mr-3 text-blue-500 w-4"></i>
+                  <span class="text-sm truncate">{{ socio.email }}</span>
+                </div>
+                <div class="flex items-center text-gray-600">
+                  <i class="fas fa-phone mr-3 text-green-500 w-4"></i>
+                  <span class="text-sm">{{ socio.telefono }}</span>
+                </div>
+                <div class="flex items-center text-gray-600">
+                  <i class="fas fa-calendar mr-3 text-purple-500 w-4"></i>
+                  <span class="text-sm"
+                    >Desde {{ socio.fecha_registro|date:"M Y" }}</span
+                  >
+                </div>
+              </div>
+
+              <div class="mt-6 pt-4 border-t border-gray-100">
+                <div class="flex gap-2">
+                  <button
+                    onclick="contactarDemo('{{ socio.nombre_completo }}', 'email')"
+                    class="flex-1 bg-blue-50 hover:bg-blue-100 text-blue-600 py-2 px-3 rounded-lg text-sm font-medium transition-colors"
+                  >
+                    <i class="fas fa-envelope mr-1"></i>Email
+                  </button>
+                  <button
+                    onclick="contactarDemo('{{ socio.nombre_completo }}', 'telefono')"
+                    class="flex-1 bg-green-50 hover:bg-green-100 text-green-600 py-2 px-3 rounded-lg text-sm font-medium transition-colors"
+                  >
+                    <i class="fas fa-phone mr-1"></i>Llamar
+                  </button>
+                </div>
+              </div>
+            </div>
+            {% empty %}
+            <div class="col-span-full text-center py-12">
+              <i class="fas fa-users text-6xl text-gray-300 mb-4"></i>
+              <p class="text-gray-500 text-lg">No hay contactos disponibles</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Características del Sistema -->
+    <section
+      class="py-16 bg-gradient-to-br from-gray-900 to-gray-800 text-white"
+    >
+      <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+          <h3 class="text-3xl font-bold mb-12 text-center">
+            <i class="fas fa-cogs text-blue-400 mr-3"></i>
+            Características del Sistema
+          </h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center p-6">
+              <div
+                class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4"
+              >
+                <i class="fas fa-search-plus text-2xl"></i>
+              </div>
+              <h4 class="text-lg font-semibold mb-2">Búsqueda Avanzada</h4>
+              <p class="text-gray-300">
+                Encuentra contactos por cualquier criterio
+              </p>
+            </div>
+
+            <div class="text-center p-6">
+              <div
+                class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4"
+              >
+                <i class="fas fa-mobile-alt text-2xl"></i>
+              </div>
+              <h4 class="text-lg font-semibold mb-2">Responsive</h4>
+              <p class="text-gray-300">
+                Funciona perfecto en móviles y tablets
+              </p>
+            </div>
+
+            <div class="text-center p-6">
+              <div
+                class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4"
+              >
+                <i class="fas fa-bolt text-2xl"></i>
+              </div>
+              <h4 class="text-lg font-semibold mb-2">Tiempo Real</h4>
+              <p class="text-gray-300">Resultados instantáneos sin recargar</p>
+            </div>
+
+            <div class="text-center p-6">
+              <div
+                class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4"
+              >
+                <i class="fas fa-shield-alt text-2xl"></i>
+              </div>
+              <h4 class="text-lg font-semibold mb-2">Seguro</h4>
+              <p class="text-gray-300">Protección de datos garantizada</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Búsqueda en tiempo real
+      const searchForm = document.getElementById("searchForm");
+      const searchInput = document.getElementById("searchInput");
+      const resultadosContainer = document.getElementById(
+        "resultadosContainer"
+      );
+      const resultadosSection = document.getElementById("resultados");
+
+      let searchTimeout;
+
+      // Búsqueda mientras escribe
+      searchInput.addEventListener("input", function () {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          if (this.value.length >= 2) {
+            realizarBusqueda(this.value);
+          } else if (this.value.length === 0) {
+            limpiarResultados();
+          }
+        }, 300);
+      });
+
+      // Envío del formulario
+      searchForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const query = searchInput.value.trim();
+        if (query) {
+          realizarBusqueda(query);
+        }
+      });
+
+      function realizarBusqueda(query) {
+        mostrarCargando(true);
+
+        fetch(`/directorio/buscar/?q=${encodeURIComponent(query)}`, {
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            mostrarResultados(data);
+            mostrarCargando(false);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            mostrarError();
+            mostrarCargando(false);
+          });
+      }
+
+      function mostrarResultados(data) {
+        if (data.socios.length === 0) {
+          resultadosContainer.innerHTML = `
+                    <div class="text-center py-12">
+                        <i class="fas fa-search text-6xl text-gray-300 mb-4"></i>
+                        <h3 class="text-2xl font-semibold text-gray-600 mb-2">No se encontraron resultados</h3>
+                        <p class="text-gray-500">Intenta con otros términos de búsqueda</p>
+                    </div>
+                `;
+        } else {
+          let html = `
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">
+                            <i class="fas fa-search-plus text-blue-600 mr-2"></i>
+                            Resultados de búsqueda
+                        </h3>
+                        <p class="text-gray-600">
+                            ${data.total} contacto${
+            data.total !== 1 ? "s" : ""
+          } encontrado${data.total !== 1 ? "s" : ""} 
+                            ${data.query ? `para "${data.query}"` : ""}
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                `;
+
+          data.socios.forEach((socio) => {
+            const iniciales = socio.nombre.charAt(0) + socio.apellido.charAt(0);
+            html += `
+                        <div class="bg-white rounded-xl shadow-md card-hover p-6 border border-gray-100 fade-in">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="flex-1">
+                                    <h4 class="text-xl font-semibold text-gray-800">${socio.nombre_completo}</h4>
+                                    <p class="text-blue-600 font-medium">${socio.empresa}</p>
+                                </div>
+                                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                                    ${iniciales}
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <div class="flex items-center text-gray-600">
+                                    <i class="fas fa-envelope mr-3 text-blue-500 w-4"></i>
+                                    <span class="text-sm truncate">${socio.email}</span>
+                                </div>
+                                <div class="flex items-center text-gray-600">
+                                    <i class="fas fa-phone mr-3 text-green-500 w-4"></i>
+                                    <span class="text-sm">${socio.telefono}</span>
+                                </div>
+                                <div class="flex items-center text-gray-600">
+                                    <i class="fas fa-calendar mr-3 text-purple-500 w-4"></i>
+                                    <span class="text-sm">Desde ${socio.fecha_registro}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 pt-4 border-t border-gray-100">
+                                <div class="flex gap-2">
+                                    <button onclick="contactarDemo('${socio.nombre_completo}', 'email')" 
+                                            class="flex-1 bg-blue-50 hover:bg-blue-100 text-blue-600 py-2 px-3 rounded-lg text-sm font-medium transition-colors">
+                                        <i class="fas fa-envelope mr-1"></i>Email
+                                    </button>
+                                    <button onclick="contactarDemo('${socio.nombre_completo}', 'telefono')" 
+                                            class="flex-1 bg-green-50 hover:bg-green-100 text-green-600 py-2 px-3 rounded-lg text-sm font-medium transition-colors">
+                                        <i class="fas fa-phone mr-1"></i>Llamar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+          });
+
+          html += "</div>";
+          resultadosContainer.innerHTML = html;
+        }
+
+        // Hacer scroll a los resultados
+        resultadosSection.scrollIntoView({ behavior: "smooth" });
+      }
+
+      function mostrarCargando(mostrar) {
+        const btnText = document.querySelector(".search-btn-text");
+        const loading = document.querySelector(".loading");
+
+        if (mostrar) {
+          btnText.classList.add("hidden");
+          loading.classList.remove("hidden");
+        } else {
+          btnText.classList.remove("hidden");
+          loading.classList.add("hidden");
+        }
+      }
+
+      function mostrarError() {
+        resultadosContainer.innerHTML = `
+                <div class="text-center py-12">
+                    <i class="fas fa-exclamation-triangle text-6xl text-red-300 mb-4"></i>
+                    <h3 class="text-2xl font-semibold text-gray-600 mb-2">Error en la búsqueda</h3>
+                    <p class="text-gray-500">Inténtalo de nuevo en unos momentos</p>
+                </div>
+            `;
+      }
+
+      function limpiarResultados() {
+        resultadosContainer.innerHTML = "";
+      }
+
+      // Funciones demo
+      function contactarDemo(nombre, tipo) {
+        const mensajes = {
+          email: `📧 Funcionalidad de Email\n\nEn un sistema real, esto abriría el cliente de email para contactar a ${nombre}`,
+          telefono: `📞 Funcionalidad de Teléfono\n\nEn un sistema real, esto iniciaría una llamada a ${nombre}`,
+        };
+
+        alert(mensajes[tipo]);
+      }
+
+      function mostrarInfo() {
+        alert(
+          `ℹ️ Sistema de Directorio - Demo\n\n✅ Búsqueda en tiempo real\n✅ Interfaz responsive\n✅ Gestión de contactos\n✅ Base de datos SQLite\n\n🎯 Perfecto para empresas que necesitan organizar sus contactos de manera profesional.`
+        );
+      }
+    </script>
+  </body>
+</html>
