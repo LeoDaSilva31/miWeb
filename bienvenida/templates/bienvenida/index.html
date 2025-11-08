@@ -3,7 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Leo Da Silva - Desarrollador Web</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Leo Da Silva - Desarrollador Web | Páginas Web y Apps Personalizadas</title>
+    <meta name="description" content="Desarrollador web especializado en páginas web profesionales, aplicaciones Django y soluciones digitales personalizadas. Transformo ideas en experiencias web excepcionales." />
+    <meta name="keywords" content="desarrollador web, páginas web, Django, aplicaciones web, diseño web, desarrollo web Argentina, programador web" />
+    <meta name="author" content="Leo Da Silva" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://leods-blog.org/" />
+    <meta property="og:title" content="Leo Da Silva - Desarrollador Web" />
+    <meta property="og:description" content="Desarrollador web especializado en páginas web profesionales y aplicaciones Django. Soluciones digitales personalizadas." />
+    <meta property="og:site_name" content="Leo Da Silva - Desarrollador Web" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://leods-blog.org/" />
+    <meta name="twitter:title" content="Leo Da Silva - Desarrollador Web" />
+    <meta name="twitter:description" content="Desarrollador web especializado en páginas web profesionales y aplicaciones Django." />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://leods-blog.org/" />
+    
     {% load static %}
     <link rel="stylesheet" href="{% static 'bienvenida/css/style.css' %}" />
     <link
@@ -270,5 +293,35 @@
       <div class="pattern-dot"></div>
       <div class="pattern-dot"></div>
     </div>
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Leo Da Silva",
+      "jobTitle": "Desarrollador Web",
+      "description": "Desarrollador web especializado en páginas web profesionales, aplicaciones Django y soluciones digitales personalizadas.",
+      "url": "https://leods-blog.org/",
+      "sameAs": [
+        "https://github.com/LeoDaSilva31"
+      ],
+      "knowsAbout": [
+        "Desarrollo Web",
+        "Django",
+        "Python",
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "Aplicaciones Web",
+        "Diseño Responsive"
+      ],
+      "offers": {
+        "@type": "Service",
+        "serviceType": "Desarrollo Web",
+        "description": "Desarrollo de páginas web profesionales y aplicaciones web personalizadas"
+      }
+    }
+    </script>
   </body>
 </html>

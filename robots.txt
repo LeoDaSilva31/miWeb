@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://leods-blog.org/sitemap.xml
+
+# Bloquear archivos de admin en producción
+Disallow: /admin/
+Disallow: /static/admin/

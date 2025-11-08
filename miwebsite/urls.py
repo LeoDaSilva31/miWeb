@@ -16,10 +16,30 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
+from django.views.generic import TemplateView
+import os
+from django.conf import settings
+
+def robots_txt(request):
+    robots_path = os.path.join(settings.BASE_DIR, 'robots.txt')
+    with open(robots_path, 'r') as f:
+        content = f.read()
+    return HttpResponse(content, content_type='text/plain')
+
+def sitemap_xml(request):
+    sitemap_path = os.path.join(settings.BASE_DIR, 'sitemap.xml')
+    with open(sitemap_path, 'r') as f:
+        content = f.read()
+    return HttpResponse(content, content_type='application/xml')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('bienvenida.urls')),
     path('panaderia/', include('panaderia.urls')),
     path('directorio/', include('directorio.urls')),
+    
+    # SEO URLs
+    path('robots.txt', robots_txt, name='robots_txt'),
+    path('sitemap.xml', sitemap_xml, name='sitemap_xml'),
 ]
