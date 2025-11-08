@@ -1,122 +1,128 @@
-# Mi Sitio Web - Django
+# Leo Da Silva - Portafolio Web
 
-Un sitio web sencillo construido con Django, con una página de bienvenida "Sitio en construcción".
+Sitio web profesional de desarrollador con aplicaciones demo construido con Django, optimizado para SEO y diseño responsive.
 
 ## 🚀 Características
 
-- ✅ Página de bienvenida "Sitio en construcción" moderna y responsiva
-- ✅ App Django organizada (`bienvenida`)
-- ✅ Diseño con gradientes y animaciones CSS
-- ✅ Configuración con variables de entorno
-- ✅ Responsive design
+- ✅ **Página principal** con información profesional
+- ✅ **Demo Panadería** - Landing page comercial responsive  
+- ✅ **Sistema Directorio** - App con búsqueda en tiempo real
+- ✅ **SEO optimizado** - Meta tags, sitemap, schema.org
+- ✅ **Diseño responsive** - Optimizado para móviles
+- ✅ **Base de datos** - Gestión de contactos con Django ORM
 
 ## 🛠️ Instalación Local
 
 1. **Clonar el repositorio**:
-
    ```bash
-   git clone <tu-repositorio>
+   git clone https://github.com/LeoDaSilva31/miWeb.git
    cd miWeb
    ```
 
 2. **Crear y activar entorno virtual**:
-
    ```bash
    python -m venv .venv
-   source .venv/Scripts/activate  # Windows
+   .venv\Scripts\activate  # Windows
    # source .venv/bin/activate    # Linux/Mac
    ```
 
 3. **Instalar dependencias**:
-
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Configurar variables de entorno**:
-
-   ```bash
-   cp .env.example .env
-   # Editar .env con tus configuraciones si es necesario
-   ```
-
-5. **Ejecutar migraciones**:
-
+4. **Ejecutar migraciones**:
    ```bash
    python manage.py migrate
    ```
 
-6. **Ejecutar el servidor de desarrollo**:
+5. **Cargar datos de ejemplo (opcional)**:
+   ```bash
+   python manage.py cargar_datos_ejemplo
+   ```
 
+6. **Ejecutar servidor**:
    ```bash
    python manage.py runserver
    ```
-
    Visita: http://127.0.0.1:8000
 
-## 📁 Estructura del proyecto
+## 🎯 Aplicaciones Demo
+
+### 🏪 Panadería (Landing Page)
+- **URL**: `/panaderia/`
+- **Características**: Diseño comercial, responsive, demo funcional
+- **Tecnologías**: Django, Tailwind CSS, JavaScript
+
+### 👥 Sistema Directorio
+- **URL**: `/directorio/`
+- **Características**: Búsqueda en tiempo real, AJAX, base de datos
+- **Tecnologías**: Django ORM, SQLite, JSON responses
+
+## 📁 Estructura del Proyecto
 
 ```
 miWeb/
-├── .venv/                 # Entorno virtual
-├── bienvenida/            # App de Django para página de bienvenida
-│   ├── static/bienvenida/css/  # Estilos CSS
-│   ├── templates/bienvenida/   # Templates HTML
-│   ├── views.py          # Vistas
-│   ├── urls.py           # URLs de la app
-│   └── ...
-├── miwebsite/             # Configuración principal de Django
-│   ├── settings.py       # Configuración del proyecto
-│   ├── urls.py           # URLs principales
-│   └── ...
-├── manage.py             # Herramienta de gestión de Django
-├── requirements.txt      # Dependencias de Python
-├── .env.example         # Ejemplo de variables de entorno
-├── .gitignore          # Archivos ignorados por Git
-└── README.md          # Este archivo
+├── bienvenida/           # App principal
+├── panaderia/           # Demo landing page comercial  
+├── directorio/          # Demo sistema directorio
+│   ├── models.py        # Modelo Socio
+│   ├── views.py         # Vistas y búsqueda AJAX
+│   ├── management/commands/  # Comando cargar datos
+│   └── templates/       # Templates responsive
+├── miwebsite/           # Configuración Django
+├── sitemap.xml          # SEO sitemap
+├── robots.txt           # SEO robots
+├── requirements.txt     # Dependencias
+└── README.md           # Documentación
 ```
 
-## 🎨 Personalización
-
-### Cambiar el contenido
-
-Edita `bienvenida/templates/bienvenida/index.html` para modificar:
-
-- Título principal
-- Descripción
-- Enlaces de redes sociales
-- Información de contacto
-- Porcentaje de progreso
-
-### Cambiar los estilos
-
-Edita `bienvenida/static/bienvenida/css/style.css` para modificar:
-
-- Colores y gradientes
-- Tipografías
-- Animaciones
-- Diseño responsivo
-
-## 🔧 Comandos útiles
+## 🔧 Comandos Útiles
 
 ```bash
-# Ejecutar servidor de desarrollo
+# Servidor de desarrollo
 python manage.py runserver
 
-# Crear migraciones
+# Migraciones
 python manage.py makemigrations
-
-# Aplicar migraciones
 python manage.py migrate
 
-# Crear superusuario (para admin)
+# Cargar datos demo directorio
+python manage.py cargar_datos_ejemplo
+
+# Admin (crear superuser)
 python manage.py createsuperuser
 ```
 
-## 📄 Licencia
+## � SEO Implementado
 
-Este proyecto está bajo la licencia MIT.
+- ✅ Meta tags optimizados con keywords
+- ✅ Open Graph y Twitter Cards
+- ✅ Schema.org structured data  
+- ✅ Sitemap.xml automático
+- ✅ Robots.txt configurado
+- ✅ URLs canónicas
+
+## 🎨 Tecnologías
+
+- **Backend**: Django 5.2.7, Python 3.13
+- **Frontend**: HTML5, CSS3, JavaScript, Tailwind CSS  
+- **Base de Datos**: SQLite (desarrollo)
+- **SEO**: Meta tags, Schema.org, Sitemap
+- **Deploy**: Whitenoise, Gunicorn
+
+## 🌐 En Producción
+
+- **URL**: https://leods-blog.org
+- **Hosting**: Render
+- **Dominio**: Configurado con DNS
+
+## 📧 Contacto
+
+**Leo Da Silva** - Desarrollador Web
+- GitHub: [@LeoDaSilva31](https://github.com/LeoDaSilva31)
+- Web: https://leods-blog.org
 
 ---
 
-Desarrollado con ❤️ usando Django
+Desarrollado con ❤️ usando Django | Portfolio profesional 2025
