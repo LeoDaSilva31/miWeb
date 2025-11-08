@@ -1,319 +1,162 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- SEO Meta Tags -->
-    <title>
-      Leo Da Silva - Desarrollador Web | Páginas Web y Apps Personalizadas
-    </title>
-    <meta
-      name="description"
-      content="Desarrollador web especializado en páginas web profesionales, aplicaciones Django y soluciones digitales personalizadas. Transformo ideas en experiencias web excepcionales."
-    />
-    <meta
-      name="keywords"
-      content="desarrollador web, páginas web, Django, aplicaciones web, diseño web, desarrollo web Argentina, programador web"
-    />
-    <meta name="author" content="Leo Da Silva" />
-    <meta name="robots" content="index, follow" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://leods-blog.org/" />
-    <meta property="og:title" content="Leo Da Silva - Desarrollador Web" />
-    <meta
-      property="og:description"
-      content="Desarrollador web especializado en páginas web profesionales y aplicaciones Django. Soluciones digitales personalizadas."
-    />
-    <meta property="og:site_name" content="Leo Da Silva - Desarrollador Web" />
+  <!-- SEO Meta Tags -->
+  <title>
+    Leo Da Silva - Desarrollador Web | Páginas Web y Apps Personalizadas
+  </title>
+  <meta name="description"
+    content="Desarrollador web especializado en páginas web profesionales, aplicaciones Django y soluciones digitales personalizadas. Transformo ideas en experiencias web excepcionales." />
+  <meta name="keywords"
+    content="desarrollador web, páginas web, Django, aplicaciones web, diseño web, desarrollo web Argentina, programador web" />
+  <meta name="author" content="Leo Da Silva" />
+  <meta name="robots" content="index, follow" />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://leods-blog.org/" />
-    <meta name="twitter:title" content="Leo Da Silva - Desarrollador Web" />
-    <meta
-      name="twitter:description"
-      content="Desarrollador web especializado en páginas web profesionales y aplicaciones Django."
-    />
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://leods-blog.org/" />
+  <meta property="og:title" content="Leo Da Silva - Desarrollador Web" />
+  <meta property="og:description"
+    content="Desarrollador web especializado en páginas web profesionales y aplicaciones Django. Soluciones digitales personalizadas." />
+  <meta property="og:site_name" content="Leo Da Silva - Desarrollador Web" />
 
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://leods-blog.org/" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://leods-blog.org/" />
+  <meta name="twitter:title" content="Leo Da Silva - Desarrollador Web" />
+  <meta name="twitter:description"
+    content="Desarrollador web especializado en páginas web profesionales y aplicaciones Django." />
 
-    {% load static %}
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2712%27%20fill%3D%27%230f172a%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2755%25%27%20dominant-baseline%3D%27middle%27%20text-anchor%3D%27middle%27%20font-size%3D%2726%27%20font-family%3D%27Arial%27%20fill%3D%27%2338bdf8%27%20font-weight%3D%27600%27%3ELD%3C/text%3E%3C/svg%3E"
-    />
-    <link rel="stylesheet" href="{% static 'bienvenida/css/style.css' %}" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <!-- Hero Banner -->
-    <section class="hero">
-      <div class="hero-content">
-        <div class="hero-text">
-          <h1>¡Hola, soy <span class="highlight">Leo</span>! 👋</h1>
-          <p class="hero-subtitle">
-            Desarrollador Web & Creator de Soluciones Digitales
-          </p>
-          <p class="hero-description">
-            Especializado en desarrollo de páginas web, aplicaciones en línea y
-            soluciones digitales personalizadas. Transformo ideas en
-            experiencias web excepcionales.
-          </p>
-          <div class="hero-buttons">
-            <a href="#servicios" class="btn-primary">Ver Servicios</a>
-            <a href="#proyectos" class="btn-secondary">Mis Proyectos</a>
-          </div>
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://leods-blog.org/" />
+
+  {% load static %}
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2712%27%20fill%3D%27%230f172a%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2755%25%27%20dominant-baseline%3D%27middle%27%20text-anchor%3D%27middle%27%20font-size%3D%2726%27%20font-family%3D%27Arial%27%20fill%3D%27%2338bdf8%27%20font-weight%3D%27600%27%3ELD%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="{% static 'bienvenida/css/style.css' %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- Hero Banner -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>¡Hola, soy <span class="highlight">Leo</span>! 👋</h1>
+        <p class="hero-subtitle">
+          Desarrollador Web & Creator de Soluciones Digitales
+        </p>
+        <p class="hero-description">
+          Especializado en desarrollo de páginas web, aplicaciones en línea y
+          soluciones digitales personalizadas. Transformo ideas en
+          experiencias web excepcionales.
+        </p>
+        <div class="hero-buttons">
+          <a href="#servicios" class="btn-primary">Ver Servicios</a>
         </div>
-        <div class="hero-visual">
-          <div class="code-animation">
-            <svg
-              width="120"
-              height="120"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M16 18L22 12L16 6"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M8 6L2 12L8 18"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+      </div>
+      <div class="hero-visual">
+        <div class="code-animation">
+          <svg width="120" height="120" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 18L22 12L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M8 6L2 12L8 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Servicios -->
+  <section id="servicios" class="services">
+    <div class="container">
+      <h2>Servicios de Desarrollo</h2>
+      <p class="section-subtitle">
+        Soluciones digitales que impulsan tu negocio
+      </p>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor"
+                stroke-width="2" />
+              <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" />
             </svg>
           </div>
+          <h3>Páginas Web</h3>
+          <p>
+            Sitios web modernos, responsivos y optimizados para SEO. Desde
+            landing pages hasta sitios corporativos completos.
+          </p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke="currentColor" stroke-width="2" />
+              <line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" stroke-width="2" />
+              <line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" stroke-width="2" />
+            </svg>
+          </div>
+          <h3>Apps Web</h3>
+          <p>
+            Aplicaciones web interactivas con Django, JavaScript y bases de
+            datos. Soluciones completas y escalables.
+          </p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                stroke="currentColor" stroke-width="2" />
+            </svg>
+          </div>
+          <h3>Soluciones Personalizadas</h3>
+          <p>
+            Desarrollo de herramientas específicas para tu negocio.
+            Automatización y sistemas a medida.
+          </p>
         </div>
       </div>
-    </section>
-
-    <!-- Servicios -->
-    <section id="servicios" class="services">
-      <div class="container">
-        <h2>Servicios de Desarrollo</h2>
-        <p class="section-subtitle">
-          Soluciones digitales que impulsan tu negocio
-        </p>
-
-        <div class="services-grid">
-          <div class="service-card">
-            <div class="service-icon">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-                <polyline
-                  points="14,2 14,8 20,8"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </svg>
-            </div>
-            <h3>Páginas Web</h3>
-            <p>
-              Sitios web modernos, responsivos y optimizados para SEO. Desde
-              landing pages hasta sitios corporativos completos.
-            </p>
-          </div>
-
-          <div class="service-card">
-            <div class="service-icon">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
-                <rect
-                  x="2"
-                  y="3"
-                  width="20"
-                  height="14"
-                  rx="2"
-                  ry="2"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-                <line
-                  x1="8"
-                  y1="21"
-                  x2="16"
-                  y2="21"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-                <line
-                  x1="12"
-                  y1="17"
-                  x2="12"
-                  y2="21"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </svg>
-            </div>
-            <h3>Apps Web</h3>
-            <p>
-              Aplicaciones web interactivas con Django, JavaScript y bases de
-              datos. Soluciones completas y escalables.
-            </p>
-          </div>
-
-          <div class="service-card">
-            <div class="service-icon">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="3"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-                <path
-                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </svg>
-            </div>
-            <h3>Soluciones Personalizadas</h3>
-            <p>
-              Desarrollo de herramientas específicas para tu negocio.
-              Automatización y sistemas a medida.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Proyectos Demo -->
-    <section id="proyectos" class="projects">
-      <div class="container">
-        <h2>Aplicaciones de Muestra</h2>
-        <p class="section-subtitle">
-          Explora algunas demos de las soluciones que puedo crear
-        </p>
-
-        <div class="projects-grid">
-          <div class="project-card">
-            <div class="project-icon"></div>
-            <h3>E-commerce</h3>
-            <p>
-              Tienda online con carrito, pagos, inventario y panel
-              administrativo.
-            </p>
-            <button class="btn-demo" disabled>
-              <span>En desarrollo</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M5 12H19" stroke="currentColor" stroke-width="2" />
-                <polyline
-                  points="12,5 19,12 12,19"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
-          </div>
-
-          <div class="project-card">
-            <div class="project-icon">🏪</div>
-            <h3>Landing Page Comercial</h3>
-            <p>
-              Páginas de presentación para comercios que quieren mostrar sus
-              servicios de forma profesional, sin interacciones complejas.
-            </p>
-            <a href="/panaderia/" class="btn-demo-active">
-              <span>Ver Demo</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M5 12H19" stroke="currentColor" stroke-width="2" />
-                <polyline
-                  points="12,5 19,12 12,19"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </svg>
-            </a>
-          </div>
-
-          <div class="project-card">
-            <div class="project-icon">👥</div>
-            <h3>Sistema de Directorio</h3>
-            <p>
-              Aplicación web para gestionar directorios de contactos con
-              búsqueda avanzada en tiempo real y interfaz móvil optimizada.
-            </p>
-            <a href="/directorio/" class="btn-demo-active">
-              <span>Ver Demo</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M5 12H19" stroke="currentColor" stroke-width="2" />
-                <polyline
-                  points="12,5 19,12 12,19"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA Final -->
-    <section class="cta">
-      <div class="container">
-        <h2>¿Tienes un proyecto en mente?</h2>
-        <p>Hablemos de cómo puedo ayudarte a llevarlo a la realidad</p>
-        <a
-          href="https://github.com/LeoDaSilva31"
-          target="_blank"
-          class="btn-primary"
-        >
-          Ver mi GitHub
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path
-              d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-              stroke="currentColor"
-              stroke-width="2"
-            />
-            <polyline
-              points="15,3 21,3 21,9"
-              stroke="currentColor"
-              stroke-width="2"
-            />
-            <line
-              x1="10"
-              y1="14"
-              x2="21"
-              y2="3"
-              stroke="currentColor"
-              stroke-width="2"
-            />
-          </svg>
-        </a>
-      </div>
-    </section>
-
-    <!-- Background Pattern -->
-    <div class="background-pattern">
-      <div class="pattern-dot"></div>
-      <div class="pattern-dot"></div>
-      <div class="pattern-dot"></div>
-      <div class="pattern-dot"></div>
-      <div class="pattern-dot"></div>
     </div>
+  </section>
 
-    <!-- Schema.org Structured Data -->
-    <script type="application/ld+json">
+  <!-- CTA Final -->
+  <section class="cta">
+    <div class="container">
+      <h2>¿Tienes un proyecto en mente?</h2>
+      <p>Hablemos de cómo puedo ayudarte a llevarlo a la realidad</p>
+      <a href="https://github.com/LeoDaSilva31" target="_blank" class="btn-primary" rel="noopener noreferrer">
+        Ver mi GitHub
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" stroke="currentColor" stroke-width="2" />
+          <polyline points="15,3 21,3 21,9" stroke="currentColor" stroke-width="2" />
+          <line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Background Pattern -->
+  <div class="background-pattern">
+    <div class="pattern-dot"></div>
+    <div class="pattern-dot"></div>
+    <div class="pattern-dot"></div>
+    <div class="pattern-dot"></div>
+    <div class="pattern-dot"></div>
+  </div>
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Person",
@@ -339,5 +182,101 @@
         }
       }
     </script>
-  </body>
+
+  <!-- 🔰 Botón flotante de WhatsApp -->
+  <style>
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25D366;
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 32px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background-color: #1ebe5d;
+    }
+
+    /* Tooltip */
+    .whatsapp-tooltip {
+      position: fixed;
+      bottom: 90px;
+      right: 25px;
+      background-color: #ffffff;
+      color: #333;
+      font-size: 14px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 9998;
+    }
+
+    .whatsapp-float:hover + .whatsapp-tooltip {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Animación */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .whatsapp-float {
+        bottom: 15px;
+        right: 15px;
+        width: 55px;
+        height: 55px;
+        font-size: 28px;
+      }
+      .whatsapp-tooltip {
+        display: none;
+      }
+    }
+  </style>
+
+  <a href="#" id="whatsapp-btn" class="whatsapp-float" target="_blank" rel="noopener noreferrer"
+    aria-label="Chat en WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="28" height="28" fill="white">
+      <path
+        d="M16.001 3.2C9.373 3.2 4 8.573 4 15.201c0 2.621.864 5.056 2.32 7.047L4 28.8l6.719-2.24c1.936 1.281 4.208 2.041 6.681 2.041 6.628 0 12.001-5.373 12.001-12.001S22.629 3.2 16.001 3.2zm0 21.601c-2.108 0-4.064-.678-5.685-1.826l-.404-.269-3.988 1.328 1.317-3.866-.264-.398A9.67 9.67 0 016.4 15.201c0-5.311 4.29-9.601 9.601-9.601s9.601 4.29 9.601 9.601-4.29 9.6-9.601 9.6zm5.324-7.146c-.294-.147-1.737-.858-2.006-.955-.27-.099-.468-.147-.665.147-.196.294-.762.954-.935 1.149-.173.196-.343.22-.637.074-.294-.147-1.243-.458-2.37-1.46-.876-.782-1.466-1.749-1.64-2.043-.173-.294-.018-.453.13-.6.134-.133.294-.347.44-.52.147-.173.196-.294.294-.489.098-.196.049-.367-.025-.514-.074-.147-.665-1.605-.912-2.199-.24-.576-.485-.498-.665-.508-.173-.009-.367-.011-.562-.011s-.514.074-.784.367c-.27.294-1.03 1.006-1.03 2.455s1.054 2.848 1.2 3.043c.147.196 2.074 3.169 5.032 4.444.704.304 1.252.485 1.68.62.706.225 1.347.193 1.856.117.567-.085 1.737-.71 1.982-1.396.245-.685.245-1.273.171-1.396-.073-.123-.27-.196-.563-.343z" />
+    </svg>
+  </a>
+
+  <div class="whatsapp-tooltip">💬 Chatea conmigo</div>
+
+  <script>
+    const numeroWhatsApp = "5491168044215";
+    const mensajePredefinido = "¡Hola Leo! Me gustaría obtener más información sobre tus servicios.";
+
+    document.getElementById("whatsapp-btn").href =
+      `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensajePredefinido)}`;
+  </script>
+
+</body>
+
 </html>
