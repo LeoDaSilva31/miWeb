@@ -18,8 +18,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.http import HttpResponse
 from django.views.generic import TemplateView
-import os
 from django.conf import settings
+from django.conf.urls.static import static
+import os
 
 def robots_txt(request):
     robots_path = os.path.join(settings.BASE_DIR, 'robots.txt')
@@ -41,3 +42,7 @@ urlpatterns = [
     path('robots.txt', robots_txt, name='robots_txt'),
     path('sitemap.xml', sitemap_xml, name='sitemap_xml'),
 ]
+
+# Servir archivos media en desarrollo
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

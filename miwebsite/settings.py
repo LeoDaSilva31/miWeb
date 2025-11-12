@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bienvenida',  # App principal del sitio
+    'catalogo',    # App de productos/catálogo
 ]
 
 # --- Middleware ---
@@ -100,6 +101,10 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'  # donde collectstatic deposita
 
 # WhiteNoise: comprime y versiona
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# --- Archivos multimedia ---
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # --- Cabeceras seguras detrás de proxy ---
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
