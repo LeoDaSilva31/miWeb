@@ -5,7 +5,7 @@ Sitio web profesional de desarrollador con aplicaciones demo construido con Djan
 ## 🚀 Características
 
 - ✅ **Página principal** con información profesional
-- ✅ **Demo Panadería** - Landing page comercial responsive  
+- ✅ **Demo Panadería** - Landing page comercial responsive
 - ✅ **Sistema Directorio** - App con búsqueda en tiempo real
 - ✅ **SEO optimizado** - Meta tags, sitemap, schema.org
 - ✅ **Diseño responsive** - Optimizado para móviles
@@ -14,12 +14,14 @@ Sitio web profesional de desarrollador con aplicaciones demo construido con Djan
 ## 🛠️ Instalación Local
 
 1. **Clonar el repositorio**:
+
    ```bash
    git clone https://github.com/LeoDaSilva31/miWeb.git
    cd miWeb
    ```
 
 2. **Crear y activar entorno virtual**:
+
    ```bash
    python -m venv .venv
    .venv\Scripts\activate  # Windows
@@ -27,16 +29,19 @@ Sitio web profesional de desarrollador con aplicaciones demo construido con Djan
    ```
 
 3. **Instalar dependencias**:
+
    ```bash
    pip install -r requirements.txt
    ```
 
 4. **Ejecutar migraciones**:
+
    ```bash
    python manage.py migrate
    ```
 
 5. **Cargar datos de ejemplo (opcional)**:
+
    ```bash
    python manage.py cargar_datos_ejemplo
    ```
@@ -50,11 +55,13 @@ Sitio web profesional de desarrollador con aplicaciones demo construido con Djan
 ## 🎯 Aplicaciones Demo
 
 ### 🏪 Panadería (Landing Page)
+
 - **URL**: `/panaderia/`
 - **Características**: Diseño comercial, responsive, demo funcional
 - **Tecnologías**: Django, Tailwind CSS, JavaScript
 
 ### 👥 Sistema Directorio
+
 - **URL**: `/directorio/`
 - **Características**: Búsqueda en tiempo real, AJAX, base de datos
 - **Tecnologías**: Django ORM, SQLite, JSON responses
@@ -64,7 +71,7 @@ Sitio web profesional de desarrollador con aplicaciones demo construido con Djan
 ```
 miWeb/
 ├── bienvenida/           # App principal
-├── panaderia/           # Demo landing page comercial  
+├── panaderia/           # Demo landing page comercial
 ├── directorio/          # Demo sistema directorio
 │   ├── models.py        # Modelo Socio
 │   ├── views.py         # Vistas y búsqueda AJAX
@@ -98,7 +105,7 @@ python manage.py createsuperuser
 
 - ✅ Meta tags optimizados con keywords
 - ✅ Open Graph y Twitter Cards
-- ✅ Schema.org structured data  
+- ✅ Schema.org structured data
 - ✅ Sitemap.xml automático
 - ✅ Robots.txt configurado
 - ✅ URLs canónicas
@@ -106,7 +113,7 @@ python manage.py createsuperuser
 ## 🎨 Tecnologías
 
 - **Backend**: Django 5.2.7, Python 3.13
-- **Frontend**: HTML5, CSS3, JavaScript, Tailwind CSS  
+- **Frontend**: HTML5, CSS3, JavaScript, Tailwind CSS
 - **Base de Datos**: SQLite (desarrollo)
 - **SEO**: Meta tags, Schema.org, Sitemap
 - **Deploy**: Whitenoise, Gunicorn
@@ -120,6 +127,7 @@ python manage.py createsuperuser
 ## 📧 Contacto
 
 **Leo Da Silva** - Desarrollador Web
+
 - GitHub: [@LeoDaSilva31](https://github.com/LeoDaSilva31)
 - Web: https://leods-blog.org
 
