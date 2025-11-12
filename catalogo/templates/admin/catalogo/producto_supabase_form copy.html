@@ -1,0 +1,119 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}{{ title }} - {{ title }}{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+.form-row {
+    margin-bottom: 15px;
+}
+.form-row label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.form-row input, .form-row textarea, .form-row select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.form-row textarea {
+    height: 100px;
+}
+.submit-row {
+    margin-top: 20px;
+}
+.btn-save {
+    background: #417690;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.btn-save:hover {
+    background: #205067;
+}
+.btn-cancel {
+    background: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+    text-decoration: none;
+    display: inline-block;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" style="padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; 
+             {% if message.tags == 'error' %}background: #f8d7da; color: #721c24; border-color: #f5c6cb;{% endif %}
+             {% if message.tags == 'success' %}background: #d4edda; color: #155724; border-color: #c3e6cb;{% endif %}
+             {% if message.tags == 'warning' %}background: #fff3cd; color: #856404; border-color: #ffeaa7;{% endif %}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <div class="form-row">
+        <label for="titulo">Título:</label>
+        <input type="text" name="titulo" id="titulo" 
+               value="{% if producto %}{{ producto.titulo }}{% endif %}" required>
+    </div>
+    
+    <div class="form-row">
+        <label for="descripcion">Descripción:</label>
+        <textarea name="descripcion" id="descripcion" required>{% if producto %}{{ producto.descripcion }}{% endif %}</textarea>
+    </div>
+    
+    <div class="form-row">
+        <label for="precio">Precio:</label>
+        <input type="number" step="0.01" name="precio" id="precio" 
+               value="{% if producto %}{{ producto.precio }}{% endif %}">
+    </div>
+    
+    <div class="form-row">
+        <label for="foto">Foto:</label>
+        <input type="file" name="foto" id="foto" accept="image/*">
+        {% if producto.foto_url %}
+            <div style="margin-top: 10px;">
+                <p>Imagen actual:</p>
+                <img src="{{ producto.foto_url }}" alt="{{ producto.titulo }}" 
+                     style="max-width: 200px; height: auto; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="form-row">
+        <label for="activo">
+            <input type="checkbox" name="activo" id="activo" value="1"
+                   {% if not producto or producto.activo %}checked{% endif %}>
+            Activo
+        </label>
+    </div>
+    
+    <div class="form-row">
+        <label for="orden">Orden:</label>
+        <input type="number" name="orden" id="orden" 
+               value="{% if producto %}{{ producto.orden }}{% else %}0{% endif %}">
+    </div>
+    
+    <div class="submit-row">
+        <button type="submit" class="btn-save">Guardar</button>
+        <a href="{% url 'catalogo:productos_supabase_list' %}" class="btn-cancel">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

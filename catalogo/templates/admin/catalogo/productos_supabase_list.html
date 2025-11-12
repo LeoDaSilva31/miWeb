@@ -1,0 +1,268 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Productos Supabase - {{ title }}{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+  .productos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .btn-supabase {
+    background: #3ecf8e;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  .btn-supabase:hover {
+    background: #2ba76a;
+    color: white;
+    text-decoration: none;
+  }
+
+  .producto-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  .status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .status-active {
+    background: #d4edda;
+    color: #155724;
+  }
+
+  .status-inactive {
+    background: #f8d7da;
+    color: #721c24;
+  }
+
+  .actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn-sm {
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+
+  .btn-edit {
+    background: #007bff;
+    color: white;
+  }
+
+  .btn-delete {
+    background: #dc3545;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="productos-header">
+  <div>
+    <h1>Productos en Supabase</h1>
+    <p>Gestiona productos almacenados en Supabase con imágenes optimizadas</p>
+  </div>
+  <a href="{% url 'catalogo:producto_supabase_create' %}" class="btn-supabase">
+    ➕ Crear Producto
+  </a>
+</div>
+
+{% if messages %} {% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible">
+  {{ message }}
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+{% endfor %} {% endif %}
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Imagen</th>
+        <th>Título</th>
+        <th>Precio</th>
+        <th>Estado</th>
+        <th>Orden</th>
+        <th>Fecha creación</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for producto in productos %}
+      <tr>
+        <td>
+          {% if producto.foto_url %}
+          <img
+            src="{{ producto.foto_url }}"
+            alt="{{ producto.titulo }}"
+            class="producto-image"
+          />
+          {% else %}
+          <div
+            style="
+              width: 60px;
+              height: 60px;
+              background: #f0f0f0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 4px;
+            "
+          >
+            📷
+          </div>
+          {% endif %}
+        </td>
+        <td>
+          <strong>{{ producto.titulo }}</strong>
+          <br />
+          <small>{{ producto.descripcion|truncatewords:8 }}</small>
+        </td>
+        <td>
+          {% if producto.precio %} ${{ producto.precio|floatformat:2 }} {% else
+          %}
+          <span class="text-muted">-</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if producto.activo %}
+          <span class="status-badge status-active">Activo</span>
+          {% else %}
+          <span class="status-badge status-inactive">Inactivo</span>
+          {% endif %}
+        </td>
+        <td>{{ producto.orden }}</td>
+        <td>
+          {% if producto.fecha_creacion %} {{
+          producto.fecha_creacion|slice:":10" }} {% else %}
+          <span class="text-muted">-</span>
+          {% endif %}
+        </td>
+        <td>
+          <div class="actions">
+            <a
+              href="{% url 'catalogo:producto_supabase_update' producto.id %}"
+              class="btn-sm btn-edit"
+            >
+              ✏️ Editar
+            </a>
+            <button
+              onclick="eliminarProducto('{{ producto.id }}', '{{ producto.titulo|escapejs }}')"
+              class="btn-sm btn-delete"
+            >
+              🗑️ Eliminar
+            </button>
+          </div>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="7" class="text-center">
+          <p>No hay productos en Supabase.</p>
+          <a
+            href="{% url 'catalogo:producto_supabase_create' %}"
+            class="btn-supabase"
+          >
+            Crear primer producto
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- Paginación -->
+{% if productos.has_other_pages %}
+<nav aria-label="Paginación">
+  <ul class="pagination">
+    {% if productos.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ productos.previous_page_number }}"
+        >Anterior</a
+      >
+    </li>
+    {% endif %}
+
+    <li class="page-item active">
+      <span class="page-link">
+        Página {{ productos.number }} de {{ productos.paginator.num_pages }}
+      </span>
+    </li>
+
+    {% if productos.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ productos.next_page_number }}"
+        >Siguiente</a
+      >
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+
+<script>
+  function eliminarProducto(id, titulo) {
+    if (
+      confirm(
+        `¿Estás seguro de eliminar "${titulo}"?\n\nEsta acción no se puede deshacer.`
+      )
+    ) {
+      fetch(
+        `{% url 'catalogo:producto_supabase_delete' 'PLACEHOLDER' %}`.replace(
+          "PLACEHOLDER",
+          id
+        ),
+        {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]")
+              .value,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            alert(data.message);
+            location.reload();
+          } else {
+            alert("Error: " + data.error);
+          }
+        })
+        .catch((error) => {
+          alert("Error de conexión: " + error);
+        });
+    }
+  }
+</script>
+
+{% csrf_token %}
+{% endblock %}
