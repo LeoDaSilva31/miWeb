@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://leods-blog.org/</loc>
-    <lastmod>2025-11-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2025-11-08</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://leods-blog.org/panaderia/</loc>
-    <lastmod>2025-11-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://leods-blog.org/directorio/</loc>
-    <lastmod>2025-11-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leods-blog.org/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leods-blog.org/" />
   </url>
 </urlset>
