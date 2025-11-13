@@ -1,44 +1,11 @@
 """
-Script alternativo para crear la tabla productos directamente
+Script alternativo que imprime los comandos SQL necesarios para crear la
+tabla `productos` en PostgreSQL (útil para pgAdmin o psql).
 """
-from miwebsite.supabase_config import get_supabase_client
-
-def create_productos_table_direct():
-    """
-    Crea la tabla productos usando la API de Supabase
-    """
-    client = get_supabase_client()
-    
-    if not client:
-        print("❌ Error: No se pudo conectar a Supabase")
-        return False
-    
-    print("🚀 Creando tabla productos en Supabase...")
-    
-    try:
-        # Intentar crear algunos registros de prueba para verificar que funciona
-        # Primero verificamos si la tabla existe intentando hacer una consulta
-        try:
-            response = client.table('productos').select('id').limit(1).execute()
-            print("✅ La tabla 'productos' ya existe")
-            return True
-        except Exception as e:
-            if "does not exist" in str(e).lower() or "relation" in str(e).lower():
-                print("📋 La tabla 'productos' no existe, necesita ser creada manualmente")
-                print("\n🔧 Ejecuta el siguiente SQL en el SQL Editor de Supabase:")
-                print_sql_commands()
-                return False
-            else:
-                print(f"❌ Error verificando tabla: {e}")
-                return False
-                
-    except Exception as e:
-        print(f"❌ Error general: {e}")
-        return False
 
 def print_sql_commands():
     """
-    Imprime los comandos SQL que deben ejecutarse manualmente
+    Imprime los comandos SQL que deben ejecutarse manualmente en PostgreSQL
     """
     sql = """
 -- 1. Crear tabla productos
@@ -86,43 +53,14 @@ CREATE POLICY IF NOT EXISTS "Usuarios autenticados pueden gestionar productos"
     ON productos FOR ALL
     USING (auth.role() = 'authenticated');
 """
-    
     print(sql)
-    print("\n📝 Instrucciones:")
-    print("1. Ve a tu proyecto en https://app.supabase.com")
-    print("2. Ve a SQL Editor")
-    print("3. Copia y pega el SQL de arriba")
-    print("4. Haz clic en 'Run' para ejecutarlo")
-    print("5. Vuelve a ejecutar: python manage.py test_table")
 
-def create_bucket():
-    """
-    Crea el bucket de productos-images
-    """
-    client = get_supabase_client()
-    
-    if not client:
-        return False
-    
-    try:
-        # Crear bucket
-        storage = client.storage
-        result = storage.create_bucket('productos-images', public=True)
-        print("✅ Bucket 'productos-images' creado exitosamente")
-        return True
-    except Exception as e:
-        if "already exists" in str(e):
-            print("ℹ️ Bucket 'productos-images' ya existe")
-            return True
-        else:
-            print(f"❌ Error creando bucket: {e}")
-            return False
+    print("\n📝 Instrucciones para pgAdmin / psql:")
+    print("1. Abre pgAdmin o conéctate con psql a tu servidor PostgreSQL local")
+    print("2. Crea el usuario/DB si no existen (ej.: CREATE USER miweb WITH PASSWORD 'miweb'; CREATE DATABASE miweb OWNER miweb;")
+    print("3. Ejecuta el SQL de arriba en la base de datos objetivo")
+    print("4. Verifica con: \"\d productos\" en psql o inspeccionando la tabla en pgAdmin")
 
 if __name__ == "__main__":
-    print("🔧 Verificando y configurando Supabase...")
-    
-    # Crear bucket
-    create_bucket()
-    
-    # Verificar/crear tabla
-    create_productos_table_direct()
+    print("🔧 Imprimiendo SQL para crear tabla 'productos' en PostgreSQL")
+    print_sql_commands()

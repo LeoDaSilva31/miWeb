@@ -34,19 +34,36 @@ Sitio web profesional de desarrollador con aplicaciones demo construido con Djan
    pip install -r requirements.txt
    ```
 
-4. **Ejecutar migraciones**:
+4. **Instalar PostgreSQL (y opcionalmente pgAdmin) y crear la base de datos local**:
+
+   - Instala PostgreSQL en tu máquina (Windows: instalador oficial, Linux: apt/yum, Mac: Homebrew).
+   - Abre pgAdmin o psql y crea una base de datos y un usuario. Ejemplo:
+
+     ```sql
+     CREATE USER miweb WITH PASSWORD 'miweb';
+     CREATE DATABASE miweb OWNER miweb;
+     ```
+
+   - Alternativamente, usa `pgAdmin` para crear la base y el usuario.
+
+5. **Configurar variables de entorno**:
+
+   - Copia `.env.example` a `.env` y ajusta los valores (SECRET_KEY, DB_NAME, DB_USER, DB_PASSWORD, etc.).
+   - El proyecto usa `python-dotenv` para cargar `.env` en `settings.py`.
+
+6. **Ejecutar migraciones**:
 
    ```bash
    python manage.py migrate
    ```
 
-5. **Cargar datos de ejemplo (opcional)**:
+7. **Cargar datos de ejemplo (opcional)**:
 
    ```bash
    python manage.py cargar_datos_ejemplo
    ```
 
-6. **Ejecutar servidor**:
+8. **Ejecutar servidor**:
    ```bash
    python manage.py runserver
    ```

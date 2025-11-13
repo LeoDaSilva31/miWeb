@@ -72,13 +72,39 @@ TEMPLATES = [
 WSGI_APPLICATION = 'miwebsite.wsgi.application'
 
 # --- Base de datos ---
-# Usar SQLite para desarrollo local
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# Por defecto preparamos PostgreSQL para desarrollo local.
+# Se puede configurar con la variable de entorno DATABASE_URL o con las variables
+# DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT.
+if os.getenv('DATABASE_URL'):
+    # dj-database-url permite parsear DATABASE_URL (opcional)
+    try:
+        import dj_database_url
+        DATABASES = {
+            'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
+        }
+    except Exception:
+        # Si no está dj-database-url disponible, caemos a la configuración por partes
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': os.getenv('DB_NAME', 'miweb'),
+                'USER': os.getenv('DB_USER', 'miweb'),
+                'PASSWORD': os.getenv('DB_PASSWORD', 'miweb'),
+                'HOST': os.getenv('DB_HOST', 'localhost'),
+                'PORT': os.getenv('DB_PORT', '5432'),
+            }
+        }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('DB_NAME', 'miweb'),
+            'USER': os.getenv('DB_USER', 'miweb'),
+            'PASSWORD': os.getenv('DB_PASSWORD', 'miweb'),
+            'HOST': os.getenv('DB_HOST', 'localhost'),
+            'PORT': os.getenv('DB_PORT', '5432'),
+        }
     }
-}
 
 # --- Password validators ---
 AUTH_PASSWORD_VALIDATORS = [
@@ -120,8 +146,5 @@ CSRF_TRUSTED_ORIGINS = [
 # --- Default PK ---
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# --- Configuración de Supabase ---
-SUPABASE_URL = os.getenv('SUPABASE_URL')
-SUPABASE_KEY = os.getenv('SUPABASE_KEY')
-SUPABASE_SERVICE_KEY = os.getenv('SUPABASE_SERVICE_KEY')
-SUPABASE_BUCKET_NAME = os.getenv('SUPABASE_BUCKET_NAME', 'productos-images')
+# Ya no se utiliza Supabase en este proyecto. Configure PostgreSQL usando las
+# variables de entorno: DATABASE_URL ó DB_NAME/DB_USER/DB_PASSWORD/DB_HOST/DB_PORT.
