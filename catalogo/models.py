@@ -186,3 +186,74 @@ def delete_file_on_delete(sender, instance, **kwargs):
         name = instance.foto.name
         if name:
             storage.delete(name)
+
+
+# ============================================================
+#  Modelo: ProductoLike (Me gusta / No me gusta)
+# ============================================================
+
+class ProductoLike(models.Model):
+    """
+    Tracks likes/dislikes para productos.
+    Cada usuario puede dar like O dislike (no ambos) a un producto.
+    """
+    TIPO_CHOICES = [
+        ('like', 'Me gusta'),
+        ('dislike', 'No me gusta'),
+    ]
+    
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='likes')
+    usuario_id = models.CharField(max_length=100, help_text="ID único del usuario o IP para anónimos")
+    tipo = models.CharField(max_length=10, choices=TIPO_CHOICES)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        unique_together = ('producto', 'usuario_id')  # Un voto por usuario
+        verbose_name = "Like/Dislike"
+        verbose_name_plural = "Likes/Dislikes"
+    
+    def __str__(self):
+        return f"{self.usuario_id} - {self.producto.titulo} ({self.tipo})"
+
+
+# ============================================================
+#  Modelo: ProductoComentario
+# ============================================================
+
+class ProductoComentario(models.Model):
+    """
+    Comentarios para productos.
+    Restricciones:
+    - Máximo 200 caracteres
+    - Solo 1 comentario por usuario/día por producto
+    - Puede eliminarse pero no editarse (inmutable después de crear)
+    """
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='comentarios')
+    usuario_id = models.CharField(max_length=100, help_text="ID único del usuario o IP para anónimos")
+    texto = models.CharField(max_length=200)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        verbose_name = "Comentario"
+        verbose_name_plural = "Comentarios"
+        ordering = ['-fecha_creacion']
+        indexes = [
+            models.Index(fields=['producto', 'usuario_id', 'fecha_creacion']),
+        ]
+    
+    def __str__(self):
+        return f"{self.usuario_id} - {self.producto.titulo}: {self.texto[:50]}"
+    
+    @classmethod
+    def puede_comentar_hoy(cls, producto_id, usuario_id):
+        """
+        Verifica si el usuario ya comentó hoy en este producto.
+        Retorna True si PUEDE comentar (no hay comentario de hoy).
+        """
+        hoy = timezone.now().date()
+        existe = cls.objects.filter(
+            producto_id=producto_id,
+            usuario_id=usuario_id,
+            fecha_creacion__date=hoy
+        ).exists()
+        return not existe

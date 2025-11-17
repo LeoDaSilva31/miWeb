@@ -91,3 +91,34 @@ class ProductoSupabaseForm(forms.Form):
             raise forms.ValidationError("El precio no puede ser negativo")
         
         return precio
+
+
+# ============================================================
+#  Formulario para comentarios en productos
+# ============================================================
+
+from .models import ProductoComentario
+
+
+class ProductoComentarioForm(forms.ModelForm):
+    """Formulario para crear comentarios en productos."""
+    
+    class Meta:
+        model = ProductoComentario
+        fields = ['texto']
+        widgets = {
+            'texto': forms.Textarea(attrs={
+                'maxlength': '200',
+                'placeholder': 'Escribí tu comentario (máximo 200 caracteres)',
+                'rows': 2,
+                'class': 'form-control',
+            })
+        }
+    
+    def clean_texto(self):
+        texto = self.cleaned_data.get('texto', '').strip()
+        if not texto:
+            raise forms.ValidationError("El comentario no puede estar vacío.")
+        if len(texto) > 200:
+            raise forms.ValidationError("El comentario no puede exceder 200 caracteres.")
+        return texto

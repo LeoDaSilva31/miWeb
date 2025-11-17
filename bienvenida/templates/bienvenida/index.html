@@ -255,11 +255,12 @@
               <p class="producto-descripcion">
                 {{ producto.descripcion|truncatewords:8 }}
               </p>
-              <div class="producto-precio">
+              <!-- Campo de precio deshabilitado por ahora -->
+              <!-- <div class="producto-precio">
                 {% if producto.precio %}
                 <span class="precio">${{ producto.precio|floatformat:0 }}</span>
                 {% endif %}
-              </div>
+              </div> -->
             </div>
 
             <!-- Datos del producto para el modal (ocultos) -->
@@ -293,9 +294,9 @@
     {% else %}
     <section id="productos" class="productos">
       <div class="container">
-        <h2>Nuestros Productos</h2>
+        <h2>Algo para Perder el tiempo</h2>
         <p class="section-subtitle">
-          Descubre nuestra selección de productos de calidad
+          Te interesará algo???
         </p>
         <p class="no-productos">
           No hay productos disponibles en este momento.
@@ -318,8 +319,95 @@
           </div>
           <div class="modal-info">
             <p id="modal-descripcion"></p>
-            <div class="modal-precio">
+            <!-- Campo de precio deshabilitado por ahora -->
+            <!-- <div class="modal-precio">
               <span id="modal-precio"></span>
+            </div> -->
+
+            <!-- Sección de Likes/Dislikes - Mejorada -->
+            <div class="modal-likes-section">
+              <div class="likes-container">
+                <button
+                  id="btn-like"
+                  class="btn-reaction btn-like"
+                  onclick="toggleLike(event)"
+                  title="Me gusta"
+                >
+                  <span class="reaction-icon">👍</span>
+                  <span class="reaction-text">Me gusta</span>
+                  <span class="reaction-count" id="count-likes">0</span>
+                </button>
+                <button
+                  id="btn-dislike"
+                  class="btn-reaction btn-dislike"
+                  onclick="toggleDislike(event)"
+                  title="No me gusta"
+                >
+                  <span class="reaction-icon">👎</span>
+                  <span class="reaction-text">No me gusta</span>
+                  <span class="reaction-count" id="count-dislikes">0</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Sección de Comentarios -->
+            <div
+              class="modal-comentarios"
+              style="
+                margin-top: 20px;
+                padding-top: 20px;
+                border-top: 1px solid #eee;
+              "
+            >
+              <h4 style="margin-bottom: 15px">Comentarios</h4>
+
+              <!-- Formulario para crear comentario -->
+              <div class="comentario-form" style="margin-bottom: 20px">
+                <textarea
+                  id="comentario-textarea"
+                  maxlength="200"
+                  placeholder="Escribí tu comentario (máximo 200 caracteres)"
+                  style="
+                    width: 100%;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    resize: vertical;
+                    min-height: 70px;
+                    font-family: Arial, sans-serif;
+                  "
+                ></textarea>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 10px;
+                    align-items: center;
+                  "
+                >
+                  <span id="char-count" style="font-size: 12px; color: #666"
+                    >0/200</span
+                  >
+                  <button
+                    id="btn-comentar"
+                    class="btn-primary"
+                    onclick="crearComentario(event)"
+                    style="padding: 8px 16px"
+                  >
+                    Comentar
+                  </button>
+                </div>
+              </div>
+
+              <!-- Lista de comentarios -->
+              <div
+                id="comentarios-lista"
+                style="max-height: 300px; overflow-y: auto"
+              >
+                <p style="color: #999; text-align: center">
+                  Cargando comentarios...
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -914,10 +1002,14 @@
     <div class="whatsapp-tooltip">💬 Chatea conmigo</div>
 
     <script>
-      // === MODAL DE PRODUCTOS ===
+      // === MODAL DE PRODUCTOS CON LIKES Y COMENTARIOS ===
       const PLACEHOLDER_IMG = "{% static 'bienvenida/img/placeholder.svg' %}";
+      let productoActualId = null;
+
       function abrirModal(productoId) {
         try {
+          productoActualId = productoId;
+
           // Obtener datos del producto desde los atributos data-* del card
           const card = document.querySelector(
             `[data-producto-id="${productoId}"]`
@@ -940,16 +1032,12 @@
           document.getElementById("modal-descripcion").textContent =
             producto.descripcion;
 
-          // Manejar imagen (usamos un preload a través de Image() para asegurar
-          // que los eventos onload/onerror se disparen incluso si la imagen
-          // ya está en cache del navegador).
+          // Manejar imagen
           const modalImagen = document.getElementById("modal-imagen");
-          // limpiar estado previo
           modalImagen.style.display = "none";
           modalImagen.src = "";
           modalImagen.alt = "";
           if (producto.foto) {
-            // Asegurarnos de usar una URL absoluta si el valor es relativo
             let fotoUrl = producto.foto;
             if (!/^https?:\/\//i.test(fotoUrl) && !fotoUrl.startsWith("/")) {
               fotoUrl =
@@ -967,7 +1055,6 @@
                 "No se pudo cargar la imagen del producto:",
                 fotoUrl
               );
-              // Intentamos mostrar placeholder
               if (modalImagen.src !== PLACEHOLDER_IMG) {
                 const placeholder = new Image();
                 placeholder.onload = function () {
@@ -982,7 +1069,6 @@
                 modalImagen.style.display = "none";
               }
             };
-            // lanzar la carga
             preload.src = fotoUrl;
           }
 
@@ -995,12 +1081,20 @@
             modalPrecio.style.display = "none";
           }
 
+          // Cargar stats de likes
+          cargarStatsLikes(productoId);
+
+          // Cargar comentarios
+          cargarComentarios(productoId);
+
+          // Limpiar textarea
+          document.getElementById("comentario-textarea").value = "";
+          actualizarCharCount();
+
           // Mostrar modal
           const modal = document.getElementById("producto-modal");
           modal.style.display = "flex";
-          document.body.style.overflow = "hidden"; // Evitar scroll del body
-
-          // Hacer focus en el modal para accesibilidad
+          document.body.style.overflow = "hidden";
           modal.focus();
         } catch (error) {
           console.error("Error al abrir el modal:", error);
@@ -1010,7 +1104,8 @@
       function cerrarModal() {
         const modal = document.getElementById("producto-modal");
         modal.style.display = "none";
-        document.body.style.overflow = ""; // Restaurar scroll del body
+        document.body.style.overflow = "";
+        productoActualId = null;
       }
 
       // Cerrar modal con tecla Escape
@@ -1029,6 +1124,203 @@
           });
         }
       });
+
+      // ===== FUNCIONES DE LIKES/DISLIKES =====
+      function cargarStatsLikes(productoId) {
+        fetch(`/catalogo/api/productos/${productoId}/stats/`)
+          .then((res) => res.json())
+          .then((data) => {
+            document.getElementById("count-likes").textContent = data.likes;
+            document.getElementById("count-dislikes").textContent =
+              data.dislikes;
+
+            // Marcar botones según voto actual
+            const btnLike = document.getElementById("btn-like");
+            const btnDislike = document.getElementById("btn-dislike");
+            btnLike.classList.remove("active");
+            btnDislike.classList.remove("active");
+
+            if (data.voto_actual === "like") {
+              btnLike.classList.add("active");
+            } else if (data.voto_actual === "dislike") {
+              btnDislike.classList.add("active");
+            }
+          })
+          .catch((err) => console.error("Error cargando stats:", err));
+      }
+
+      function toggleLike(event) {
+        event.preventDefault();
+        toggleVoto("like");
+      }
+
+      function toggleDislike(event) {
+        event.preventDefault();
+        toggleVoto("dislike");
+      }
+
+      function toggleVoto(tipo) {
+        if (!productoActualId) return;
+
+        fetch(`/catalogo/api/productos/${productoActualId}/like/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken"),
+          },
+          body: JSON.stringify({ tipo: tipo }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              cargarStatsLikes(productoActualId);
+            } else {
+              alert(data.error || "Error al votar");
+            }
+          })
+          .catch((err) => console.error("Error votando:", err));
+      }
+
+      // ===== FUNCIONES DE COMENTARIOS =====
+      function cargarComentarios(productoId) {
+        fetch(`/catalogo/api/productos/${productoId}/comentarios/`)
+          .then((res) => res.json())
+          .then((data) => {
+            const lista = document.getElementById("comentarios-lista");
+            if (data.comentarios.length === 0) {
+              lista.innerHTML =
+                '<p style="color: #999; text-align: center;">No hay comentarios aún.</p>';
+            } else {
+              lista.innerHTML = data.comentarios
+                .map(
+                  (c) => `
+                <div style="padding: 10px; background: #f9f9f9; border-radius: 6px; margin-bottom: 10px;">
+                  <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <div>
+                      <strong style="font-size: 12px; color: #666;">${
+                        c.usuario_id
+                      }</strong>
+                      <p style="margin: 5px 0; font-size: 14px;">${c.texto}</p>
+                      <small style="color: #999;">${new Date(
+                        c.fecha_creacion
+                      ).toLocaleString()}</small>
+                    </div>
+                    <button onclick="eliminarComentario(${
+                      c.id
+                    })" style="background: none; border: none; color: #999; cursor: pointer; font-size: 18px;" title="Eliminar">×</button>
+                  </div>
+                </div>
+              `
+                )
+                .join("");
+            }
+          })
+          .catch((err) => console.error("Error cargando comentarios:", err));
+      }
+
+      function crearComentario(event) {
+        event.preventDefault();
+        if (!productoActualId) return;
+
+        const texto = document
+          .getElementById("comentario-textarea")
+          .value.trim();
+
+        if (!texto) {
+          alert("El comentario no puede estar vacío");
+          return;
+        }
+
+        if (texto.length > 200) {
+          alert("El comentario no puede exceder 200 caracteres");
+          return;
+        }
+
+        const btn = document.getElementById("btn-comentar");
+        btn.disabled = true;
+        btn.textContent = "Enviando...";
+
+        fetch(
+          `/catalogo/api/productos/${productoActualId}/comentarios/crear/`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": getCookie("csrftoken"),
+            },
+            body: JSON.stringify({ texto: texto }),
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              document.getElementById("comentario-textarea").value = "";
+              actualizarCharCount();
+              cargarComentarios(productoActualId);
+              alert("¡Comentario publicado!");
+            } else {
+              alert(data.error || "Error al crear comentario");
+            }
+          })
+          .catch((err) => {
+            console.error("Error:", err);
+            alert("Error al enviar el comentario");
+          })
+          .finally(() => {
+            btn.disabled = false;
+            btn.textContent = "Comentar";
+          });
+      }
+
+      function eliminarComentario(comentarioId) {
+        if (!confirm("¿Eliminar este comentario?")) return;
+
+        fetch(`/catalogo/api/comentarios/${comentarioId}/eliminar/`, {
+          method: "DELETE",
+          headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              cargarComentarios(productoActualId);
+            } else {
+              alert(data.error || "No tienes permiso para eliminar");
+            }
+          })
+          .catch((err) => console.error("Error:", err));
+      }
+
+      function actualizarCharCount() {
+        const textarea = document.getElementById("comentario-textarea");
+        const charCount = document.getElementById("char-count");
+        charCount.textContent = `${textarea.value.length}/200`;
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("comentario-textarea")
+          .addEventListener("input", actualizarCharCount);
+      });
+
+      // Utilidad para obtener CSRF token
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split(";");
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(
+                cookie.substring(name.length + 1)
+              );
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
     </script>
 
     <script>

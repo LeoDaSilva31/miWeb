@@ -4,7 +4,7 @@ from django.urls import path, reverse
 from django.shortcuts import render
 from django.contrib import messages
 from django.core.files.storage import default_storage
-from .models import Producto
+from .models import Producto, ProductoLike, ProductoComentario
 
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
@@ -56,6 +56,55 @@ class ProductoAdmin(admin.ModelAdmin):
                 except Exception:
                     pass
         super().delete_queryset(request, queryset)
+
+
+@admin.register(ProductoLike)
+class ProductoLikeAdmin(admin.ModelAdmin):
+    list_display = ('usuario_id', 'producto', 'tipo', 'fecha_creacion')
+    list_filter = ('tipo', 'fecha_creacion')
+    search_fields = ('usuario_id', 'producto__titulo')
+    readonly_fields = ('fecha_creacion',)
+    
+    fieldsets = (
+        ('Información', {
+            'fields': ('producto', 'usuario_id', 'tipo')
+        }),
+        ('Metadatos', {
+            'fields': ('fecha_creacion',),
+            'classes': ('collapse',)
+        }),
+    )
+
+
+@admin.register(ProductoComentario)
+class ProductoComentarioAdmin(admin.ModelAdmin):
+    list_display = ('usuario_id', 'producto', 'texto_preview', 'fecha_creacion')
+    list_filter = ('fecha_creacion', 'producto')
+    search_fields = ('usuario_id', 'producto__titulo', 'texto')
+    readonly_fields = ('fecha_creacion', 'texto')
+    
+    fieldsets = (
+        ('Información', {
+            'fields': ('producto', 'usuario_id', 'texto')
+        }),
+        ('Metadatos', {
+            'fields': ('fecha_creacion',),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    def texto_preview(self, obj):
+        """Mostrar vista previa del comentario."""
+        return obj.texto[:50] + '...' if len(obj.texto) > 50 else obj.texto
+    texto_preview.short_description = 'Comentario'
+    
+    def has_add_permission(self, request):
+        """No permitir agregar comentarios desde admin (solo vía API)."""
+        return False
+    
+    def has_change_permission(self, request, obj=None):
+        """Los comentarios son inmutables."""
+        return False
 
 # Nota: Se eliminó la integración con Supabase. El admin gestiona ahora solo
 # los modelos de Django definidos en `catalogo.models`.
