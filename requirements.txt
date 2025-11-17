@@ -36,3 +36,5 @@ setuptools==80.9.0
 # PostgreSQL y utilidades para DATABASE_URL
 dj-database-url
 psycopg[binary]
+django-storages==1.14.6
+boto3

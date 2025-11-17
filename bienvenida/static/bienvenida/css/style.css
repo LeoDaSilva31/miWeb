@@ -975,9 +975,10 @@ html {
   background: white;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  max-width: 600px;
-  max-height: 80vh;
-  width: 90%;
+  /* Aumentamos el ancho máximo para mostrar imágenes grandes en el modal */
+  max-width: 900px;
+  max-height: 90vh;
+  width: 95%;
   position: relative;
   z-index: 1001;
   overflow: hidden;
@@ -1034,10 +1035,12 @@ html {
 
 .modal-imagen img {
   max-width: 100%;
-  max-height: 300px;
+  /* Permitimos que la imagen ocupe hasta un porcentaje de la altura de la ventana */
+  max-height: 70vh;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  object-fit: cover;
+  /* Contener la imagen sin recortarla */
+  object-fit: contain;
 }
 
 .modal-info {

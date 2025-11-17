@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import path, reverse
 from django.shortcuts import render
 from django.contrib import messages
+from django.core.files.storage import default_storage
 from .models import Producto
 
 @admin.register(Producto)
@@ -25,6 +26,36 @@ class ProductoAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
     )
+    
+    def delete_model(self, request, obj):
+        """
+        Override delete_model to ensure S3/MinIO files are cleaned up
+        even when deleting via Admin (which bypasses post_delete signals).
+        """
+        foto_name = getattr(obj.foto, 'name', None)
+        if foto_name:
+            try:
+                if default_storage.exists(foto_name):
+                    default_storage.delete(foto_name)
+            except Exception:
+                # log if needed, but don't block deletion
+                pass
+        super().delete_model(request, obj)
+    
+    def delete_queryset(self, request, queryset):
+        """
+        Override delete_queryset to ensure S3/MinIO files are cleaned up
+        when using bulk delete action (which also bypasses signals).
+        """
+        for obj in queryset:
+            foto_name = getattr(obj.foto, 'name', None)
+            if foto_name:
+                try:
+                    if default_storage.exists(foto_name):
+                        default_storage.delete(foto_name)
+                except Exception:
+                    pass
+        super().delete_queryset(request, queryset)
 
 # Nota: Se eliminó la integración con Supabase. El admin gestiona ahora solo
 # los modelos de Django definidos en `catalogo.models`.

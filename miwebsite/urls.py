@@ -19,7 +19,6 @@ from django.urls import path, include
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 from django.conf import settings
-from django.conf.urls.static import static
 import os
 
 def robots_txt(request):
@@ -44,6 +43,4 @@ urlpatterns = [
     path('sitemap.xml', sitemap_xml, name='sitemap_xml'),
 ]
 
-# Servir archivos media en desarrollo
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Nota: El proyecto usa MinIO/S3 para media; no se sirve /media/ desde el filesystem local.

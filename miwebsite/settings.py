@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bienvenida',  # App principal del sitio
     'catalogo',    # App de productos/catálogo
+    'storages',
 ]
 
 # --- Middleware ---
@@ -125,12 +126,81 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # donde collectstatic deposita
 
-# WhiteNoise: comprime y versiona
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+import os  # Esto ya lo tenés arriba
+
+# ==========================
+# MinIO / S3-compatible media storage
+# ==========================
+MINIO_ENDPOINT = os.getenv('MINIO_ENDPOINT', 'http://127.0.0.1:9000')
+MINIO_ACCESS_KEY = os.getenv('MINIO_ACCESS_KEY')
+MINIO_SECRET_KEY = os.getenv('MINIO_SECRET_KEY')
+MINIO_BUCKET = os.getenv('MINIO_BUCKET', 'django-media')
+MINIO_USE_SSL = os.getenv('MINIO_USE_SSL', 'False').lower() == 'true'
+
+
+AWS_S3_ENDPOINT_URL = MINIO_ENDPOINT
+AWS_ACCESS_KEY_ID = MINIO_ACCESS_KEY
+AWS_SECRET_ACCESS_KEY = MINIO_SECRET_KEY
+AWS_STORAGE_BUCKET_NAME = MINIO_BUCKET
+
+# MinIO no necesita región real
+AWS_S3_REGION_NAME = None
+
+# Para MinIO: URLs tipo http://127.0.0.1:9000/bucket/archivo
+AWS_S3_ADDRESSING_STYLE = 'path'
+
+# Recomendado en versiones nuevas de django-storages
+AWS_DEFAULT_ACL = None
+
+AWS_S3_USE_SSL = MINIO_USE_SSL
+AWS_S3_VERIFY = False  # en local, sin HTTPS real, mejor desactivar
+
+# Control de firma (querystring) para URLs prefirmadas.
+# Opción B: permitir desactivar firmas en local mediante la variable de entorno
+# AWS_QUERYSTRING_AUTH=False en tu .env local. En producción dejar True para
+# URLs firmadas y expirables.
+AWS_QUERYSTRING_AUTH = os.getenv('AWS_QUERYSTRING_AUTH', 'True').lower() in ('true', '1', 't')
+
+
+# ==========================
+# STORAGES - Django 5.x
+# ==========================
+
+# STORAGES: usar S3Boto3Storage para media y WhiteNoise para estáticos.
+# En este proyecto se fuerza el uso de MinIO/S3 para todos los entornos.
+STORAGES = {
+    # Storage por defecto para archivos de usuario (ImageField, FileField, etc.)
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
+    # Storage para archivos estáticos (WhiteNoise)
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+# Forzamos S3/MinIO como storage por defecto (si las credenciales no existen,
+# la configuración fallará al inicializar; el flujo de trabajo del proyecto
+# siempre debe usar MinIO y PostgreSQL).
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # --- Archivos multimedia ---
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# Este proyecto usa MinIO/S3 para media; eliminamos el uso de un directorio
+# local (`MEDIA_ROOT`). Dejamos `MEDIA_URL` vacío para evitar referencias a
+# rutas locales en plantillas o configuración.
+MEDIA_URL = ''
+
+# ==========================
+# Límites de tamaño de subida (3 MB)
+# ==========================
+
+# Tamaño máximo del cuerpo completo de la request (3 MB)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 3 * 1024 * 1024  # 3 MiB
+
+# Tamaño máximo de un archivo individual en memoria (3 MB)
+FILE_UPLOAD_MAX_MEMORY_SIZE = 3 * 1024 * 1024  # 3 MiB
+
 
 # --- Cabeceras seguras detrás de proxy ---
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

@@ -226,10 +226,8 @@
     {% block productos %} {% if productos %}
     <section id="productos" class="productos">
       <div class="container">
-        <h2>Nuestros Productos</h2>
-        <p class="section-subtitle">
-          Descubre nuestra selección de productos de calidad
-        </p>
+        <h2>Un poco de todo para perder el tiempo...</h2>
+        <p class="section-subtitle">Descubrelos</p>
 
         <div class="productos-grid">
           {% for producto in productos %}
@@ -237,11 +235,16 @@
             class="producto-card"
             onclick="abrirModal('{{ producto.id }}')"
             style="cursor: pointer"
+            data-producto-id="{{ producto.id }}"
+            data-producto-titulo="{{ producto.titulo|escape }}"
+            data-producto-descripcion="{{ producto.descripcion|escape }}"
+            data-producto-precio="{% if producto.precio %}${{ producto.precio|floatformat:0 }}{% else %}{% endif %}"
+            data-producto-foto="{% if producto.foto_url %}{{ producto.foto_url|escape }}{% elif producto.foto %}{{ producto.foto.url|escape }}{% else %}{% endif %}"
           >
             {% if producto.foto_url or producto.foto %}
             <div class="producto-imagen">
               <img
-                src="{% if producto.foto_url %}{{ producto.foto_url }}{% else %}{{ producto.foto.url }}{% endif %}"
+                src="{% if producto.foto_url %}{{ producto.foto_url }}{% elif producto.foto %}{{ producto.foto.url }}{% else %}{% static 'bienvenida/img/placeholder.svg' %}{% endif %}"
                 alt="{{ producto.titulo }}"
                 loading="lazy"
               />
@@ -260,18 +263,7 @@
             </div>
 
             <!-- Datos del producto para el modal (ocultos) -->
-            <script
-              type="application/json"
-              id="producto-data-{{ producto.id }}"
-            >
-              {
-                "id": "{{ producto.id }}",
-                "titulo": "{{ producto.titulo|escapejs }}",
-                "descripcion": "{{ producto.descripcion|escapejs }}",
-                "precio": {% if producto.precio %}"${{ producto.precio|floatformat:0 }}"{% else %}null{% endif %},
-                "foto": {% if producto.foto_url %}"{{ producto.foto_url }}"{% elif producto.foto %}"{{ producto.foto.url }}"{% else %}null{% endif %}
-              }
-            </script>
+            <!-- Datos del producto en atributos data-* para acceso desde JS -->
           </div>
           {% endfor %}
         </div>
@@ -923,32 +915,75 @@
 
     <script>
       // === MODAL DE PRODUCTOS ===
+      const PLACEHOLDER_IMG = "{% static 'bienvenida/img/placeholder.svg' %}";
       function abrirModal(productoId) {
         try {
-          // Obtener datos del producto
-          const dataScript = document.getElementById(
-            `producto-data-${productoId}`
+          // Obtener datos del producto desde los atributos data-* del card
+          const card = document.querySelector(
+            `[data-producto-id="${productoId}"]`
           );
-          if (!dataScript) {
-            console.error("No se encontraron datos del producto");
+          if (!card) {
+            console.error("No se encontró el card del producto");
             return;
           }
 
-          const producto = JSON.parse(dataScript.textContent);
+          const producto = {
+            id: card.getAttribute("data-producto-id"),
+            titulo: card.getAttribute("data-producto-titulo") || "",
+            descripcion: card.getAttribute("data-producto-descripcion") || "",
+            precio: card.getAttribute("data-producto-precio") || null,
+            foto: card.getAttribute("data-producto-foto") || null,
+          };
 
           // Llenar el modal con los datos
           document.getElementById("modal-titulo").textContent = producto.titulo;
           document.getElementById("modal-descripcion").textContent =
             producto.descripcion;
 
-          // Manejar imagen
+          // Manejar imagen (usamos un preload a través de Image() para asegurar
+          // que los eventos onload/onerror se disparen incluso si la imagen
+          // ya está en cache del navegador).
           const modalImagen = document.getElementById("modal-imagen");
+          // limpiar estado previo
+          modalImagen.style.display = "none";
+          modalImagen.src = "";
+          modalImagen.alt = "";
           if (producto.foto) {
-            modalImagen.src = producto.foto;
-            modalImagen.alt = producto.titulo;
-            modalImagen.style.display = "block";
-          } else {
-            modalImagen.style.display = "none";
+            // Asegurarnos de usar una URL absoluta si el valor es relativo
+            let fotoUrl = producto.foto;
+            if (!/^https?:\/\//i.test(fotoUrl) && !fotoUrl.startsWith("/")) {
+              fotoUrl =
+                window.location.origin + "/" + fotoUrl.replace(/^\/?/, "");
+            }
+
+            const preload = new Image();
+            preload.onload = function () {
+              modalImagen.alt = producto.titulo;
+              modalImagen.src = fotoUrl;
+              modalImagen.style.display = "block";
+            };
+            preload.onerror = function () {
+              console.warn(
+                "No se pudo cargar la imagen del producto:",
+                fotoUrl
+              );
+              // Intentamos mostrar placeholder
+              if (modalImagen.src !== PLACEHOLDER_IMG) {
+                const placeholder = new Image();
+                placeholder.onload = function () {
+                  modalImagen.src = PLACEHOLDER_IMG;
+                  modalImagen.style.display = "block";
+                };
+                placeholder.onerror = function () {
+                  modalImagen.style.display = "none";
+                };
+                placeholder.src = PLACEHOLDER_IMG;
+              } else {
+                modalImagen.style.display = "none";
+              }
+            };
+            // lanzar la carga
+            preload.src = fotoUrl;
           }
 
           // Manejar precio
