@@ -817,19 +817,19 @@ html {
 
 /* ===== RESPONSIVE DESIGN ===== */
 
-/* Pantallas grandes 1080p+ (10 productos por fila) */
+/* Pantallas grandes 1080p+ (5 productos por fila - doble tamaño) */
 @media (min-width: 1200px) {
   .productos-grid {
-    grid-template-columns: repeat(10, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
   }
 }
 
-/* Pantallas medianas 720p (8 productos por fila) */
+/* Pantallas medianas 720p (4 productos por fila - mitad de 8) */
 @media (min-width: 768px) and (max-width: 1199px) {
   .productos-grid {
-    grid-template-columns: repeat(8, 1fr);
-    gap: 14px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
   }
   
   .productos {
@@ -837,32 +837,32 @@ html {
   }
   
   .producto-titulo {
-    font-size: 0.85rem;
+    font-size: 1rem;
   }
   
   .producto-descripcion {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
   }
 }
 
-/* Pantallas pequeñas - tablets verticales (6 productos por fila) */
+/* Pantallas pequeñas - tablets verticales (3 productos por fila - mitad de 6) */
 @media (min-width: 600px) and (max-width: 767px) {
   .productos-grid {
-    grid-template-columns: repeat(6, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
   }
   
   .producto-info {
-    padding: 10px;
-    min-height: 90px;
+    padding: 16px;
+    min-height: 110px;
   }
   
   .producto-titulo {
-    font-size: 0.8rem;
+    font-size: 0.95rem;
   }
   
   .producto-descripcion {
-    font-size: 0.65rem;
+    font-size: 0.85rem;
   }
   
   .producto-precio .precio {
@@ -870,11 +870,11 @@ html {
   }
 }
 
-/* Pantallas móviles (4 productos por fila) */
+/* Pantallas móviles (2 productos por fila - mitad de 4) */
 @media (min-width: 480px) and (max-width: 599px) {
   .productos-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
   
   .productos {
