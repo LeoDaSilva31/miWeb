@@ -26,18 +26,6 @@ class ProductoSupabaseForm(forms.Form):
         })
     )
     
-    precio = forms.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        label="Precio",
-        required=False,
-        widget=forms.NumberInput(attrs={
-            'class': 'form-control',
-            'placeholder': '0.00',
-            'step': '0.01'
-        })
-    )
-    
     foto = forms.ImageField(
         label="Foto",
         required=False,
@@ -82,15 +70,6 @@ class ProductoSupabaseForm(forms.Form):
                 raise forms.ValidationError("La imagen es demasiado grande. Máximo 10MB")
         
         return foto
-    
-    def clean_precio(self):
-        """Validar precio"""
-        precio = self.cleaned_data.get('precio')
-        
-        if precio is not None and precio < 0:
-            raise forms.ValidationError("El precio no puede ser negativo")
-        
-        return precio
 
 
 # ============================================================

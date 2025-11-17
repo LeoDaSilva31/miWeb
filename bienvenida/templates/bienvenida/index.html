@@ -238,7 +238,6 @@
             data-producto-id="{{ producto.id }}"
             data-producto-titulo="{{ producto.titulo|escape }}"
             data-producto-descripcion="{{ producto.descripcion|escape }}"
-            data-producto-precio="{% if producto.precio %}${{ producto.precio|floatformat:0 }}{% else %}{% endif %}"
             data-producto-foto="{% if producto.foto_url %}{{ producto.foto_url|escape }}{% elif producto.foto %}{{ producto.foto.url|escape }}{% else %}{% endif %}"
           >
             {% if producto.foto_url or producto.foto %}
@@ -295,9 +294,7 @@
     <section id="productos" class="productos">
       <div class="container">
         <h2>Algo para Perder el tiempo</h2>
-        <p class="section-subtitle">
-          Te interesará algo???
-        </p>
+        <p class="section-subtitle">Te interesará algo???</p>
         <p class="no-productos">
           No hay productos disponibles en este momento.
         </p>
@@ -319,10 +316,6 @@
           </div>
           <div class="modal-info">
             <p id="modal-descripcion"></p>
-            <!-- Campo de precio deshabilitado por ahora -->
-            <!-- <div class="modal-precio">
-              <span id="modal-precio"></span>
-            </div> -->
 
             <!-- Sección de Likes/Dislikes - Mejorada -->
             <div class="modal-likes-section">
@@ -1023,7 +1016,6 @@
             id: card.getAttribute("data-producto-id"),
             titulo: card.getAttribute("data-producto-titulo") || "",
             descripcion: card.getAttribute("data-producto-descripcion") || "",
-            precio: card.getAttribute("data-producto-precio") || null,
             foto: card.getAttribute("data-producto-foto") || null,
           };
 
@@ -1070,15 +1062,6 @@
               }
             };
             preload.src = fotoUrl;
-          }
-
-          // Manejar precio
-          const modalPrecio = document.getElementById("modal-precio");
-          if (producto.precio) {
-            modalPrecio.textContent = producto.precio;
-            modalPrecio.style.display = "block";
-          } else {
-            modalPrecio.style.display = "none";
           }
 
           // Cargar stats de likes

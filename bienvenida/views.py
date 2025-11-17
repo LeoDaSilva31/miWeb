@@ -90,7 +90,6 @@ def api_productos(request):
                 'id': p.id,
                 'titulo': p.titulo,
                 'descripcion': p.descripcion,
-                'precio': float(p.precio) if p.precio is not None else None,
                 'foto': p.foto_url if getattr(p, 'foto_url', None) else (p.foto.url if p.foto else None),
             })
         return JsonResponse({'productos': productos}, status=200)

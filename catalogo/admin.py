@@ -8,7 +8,7 @@ from .models import Producto, ProductoLike, ProductoComentario
 
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'precio', 'activo', 'orden', 'fecha_creacion')
+    list_display = ('titulo', 'activo', 'orden', 'fecha_creacion')
     list_filter = ('activo', 'fecha_creacion')
     search_fields = ('titulo', 'descripcion')
     list_editable = ('activo', 'orden')
@@ -16,7 +16,7 @@ class ProductoAdmin(admin.ModelAdmin):
     
     fieldsets = (
         ('Información básica', {
-            'fields': ('titulo', 'descripcion', 'precio', 'foto')
+            'fields': ('titulo', 'descripcion', 'foto')
         }),
         ('Configuración', {
             'fields': ('activo', 'orden')
