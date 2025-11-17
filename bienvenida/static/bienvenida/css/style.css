@@ -975,14 +975,15 @@ html {
   background: white;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  /* Aumentamos el ancho máximo para mostrar imágenes grandes en el modal */
-  max-width: 900px;
+  max-width: 1200px;
   max-height: 90vh;
   width: 95%;
   position: relative;
   z-index: 1001;
   overflow: hidden;
   animation: slideIn 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-header {
@@ -992,6 +993,7 @@ html {
   padding: 20px 24px;
   border-bottom: 1px solid #eee;
   background: #f8f9fc;
+  flex-shrink: 0;
 }
 
 .modal-header h3 {
@@ -1023,36 +1025,81 @@ html {
 }
 
 .modal-body {
-  padding: 24px;
-  max-height: 60vh;
+  padding: 0;
+  flex: 1;
   overflow-y: auto;
+  display: flex;
+  flex-direction: row;
 }
 
 .modal-imagen {
-  text-align: center;
-  margin-bottom: 20px;
+  flex: 0 0 40%;
+  padding: 24px;
+  background: #f8f9fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #eee;
 }
 
 .modal-imagen img {
   max-width: 100%;
-  /* Permitimos que la imagen ocupe hasta un porcentaje de la altura de la ventana */
-  max-height: 70vh;
+  max-height: 100%;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  /* Contener la imagen sin recortarla */
   object-fit: contain;
 }
 
 .modal-info {
   text-align: left;
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 #modal-descripcion {
   font-size: 1rem;
   line-height: 1.6;
   color: #555;
+  margin: 0 0 20px 0;
+  white-space: pre-wrap;
+  flex-shrink: 0;
+}
+
+/* Sección de likes - no scrollable */
+.modal-likes-section {
+  flex-shrink: 0;
   margin-bottom: 20px;
-  white-space: pre-wrap; /* Preservar saltos de línea */
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+/* Sección de comentarios - scrollable */
+.modal-comentarios {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-comentarios h4 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.comentario-form {
+  flex-shrink: 0;
+  margin-bottom: 20px;
+}
+
+#comentarios-lista {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 100px;
 }
 
 .modal-precio {
@@ -1092,33 +1139,53 @@ html {
 /* Modal responsive */
 @media (max-width: 768px) {
   .modal-content {
-    width: 95%;
-    max-height: 85vh;
-    margin: 0 10px;
-  }
-  
-  .modal-header {
-    padding: 16px 20px;
-  }
-  
-  .modal-header h3 {
-    font-size: 1.2rem;
+    width: 98%;
+    max-height: 95vh;
+    margin: 0 auto;
+    flex-direction: column;
   }
   
   .modal-body {
-    padding: 20px;
+    flex-direction: column;
+  }
+  
+  .modal-imagen {
+    flex: 0 0 auto;
+    max-height: 250px;
+    padding: 16px;
+    border-right: none;
+    border-bottom: 1px solid #eee;
   }
   
   .modal-imagen img {
     max-height: 200px;
   }
   
-  #modal-descripcion {
-    font-size: 0.95rem;
+  .modal-info {
+    flex: 1;
+    padding: 16px;
   }
   
-  #modal-precio {
-    font-size: 1.5rem;
+  .modal-header {
+    padding: 12px 16px;
+  }
+  
+  .modal-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  #modal-descripcion {
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+  }
+  
+  .modal-likes-section {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+  }
+  
+  .modal-comentarios {
+    max-height: 300px;
   }
 }
 
